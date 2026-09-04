@@ -6,7 +6,7 @@
  *
  * The site is built to be re-skinned per client: one `PropertyConfig` object in
  * `@/lib/property.config` supplies the identity, the coastline, the packages,
- * the breaks and every line of section copy. `@/lib/content` re-exports it under
+ * the spots and every line of section copy. `@/lib/content` re-exports it under
  * the names the sections import, so a new prospect is a config edit and nothing
  * else. These types are what make that swap fail the build when it is
  * incomplete rather than silently ship a half-renamed business.
@@ -16,7 +16,7 @@
 export type AspectRatio = "3/4" | "4/5" | "1/1" | "3/2" | "16/9" | "21/9";
 
 /** Tonal treatment for photography placeholders, drawn from the brand palette. */
-export type PhotoTone = "dawn" | "noon" | "dusk" | "interior" | "ocean";
+export type PhotoTone = "dawn" | "noon" | "dusk" | "fairway" | "ocean";
 
 /**
  * An art-direction brief for a photograph.
@@ -28,7 +28,7 @@ export interface PhotoBrief {
   /**
    * Stable slot id, also used as the GSAP parallax target key and the lookup
    * into `@/lib/photos`. Slots are named for what the frame *contains*
-   * (`lesson-lineup`), never for the package that happens to use it — so
+   * (`board-line`), never for the package that happens to use it — so
    * renaming a package in the config never orphans a photograph.
    */
   readonly id: string;
@@ -39,49 +39,120 @@ export interface PhotoBrief {
   readonly ratio: AspectRatio;
 }
 
-/** A bookable package. */
+/**
+ * A bookable package.
+ *
+ * `photo` is absent here on purpose — see `PackageGroup`. Only the groups the
+ * client has photography for carry frames, and the type makes that explicit
+ * rather than leaving a hopeful optional field on every entry.
+ */
 export interface Package {
   readonly id: string;
   readonly name: string;
-  /** One line on who it is for, in the school's voice. */
+  /** One line on who it is for, in the operator's voice. */
   readonly meaning: string;
   /** Ability banding, printed as sold: "All Levels", "Beginner". */
   readonly level: string;
-  /** Water time as sold, e.g. "2 hours a day". */
+  /** Time as sold, e.g. "30 minutes", "9 holes". */
   readonly duration: string;
   /** What is actually included. Concrete items, not benefits. */
   readonly includes: readonly string[];
-  /** Price per person per day, in euro. */
-  readonly priceEur: number;
+  /**
+   * The price exactly as the client quotes it — "800 DHS", "40€", "80€ pp".
+   *
+   * Deliberately a display string and not a number plus a currency code. This
+   * operator prices in two currencies at once (dirhams for the combined
+   * surf-and-golf days, euro for the standalone lessons) and sometimes
+   * qualifies a figure inline ("all in", "max 3 pax"). Normalising that into
+   * `{ amount, currency }` would force the page to reconstruct a format the
+   * client has already chosen, and would silently drop the qualifiers.
+   * Rendering is `data-numeric` either way, so figures still hold their column.
+   */
+  readonly priceDisplay: string;
+}
+
+/** A package that is sold with a photograph. */
+export interface FeaturePackage extends Package {
   readonly photo: PhotoBrief;
 }
 
-/** A published review, quoted verbatim in the language it was written in. */
-export interface Testimonial {
-  readonly quote: string;
-  readonly author: string;
-  /** BCP 47 tag for the quote — reviews here are French on an English page. */
-  readonly lang: string;
+/**
+ * How a group of packages is set on the page.
+ *
+ * `feature` gives each package an alternating full-width photographic block.
+ * `list` sets the group as a rate card. The distinction is editorial, not
+ * cosmetic: a rate card is the honest form for a group with no photography,
+ * and it is also the form a reader comparing seven prices actually wants.
+ */
+export type PackageLayout = "feature" | "list";
+
+interface PackageGroupBase {
+  readonly id: string;
+  readonly title: string;
+  /** One line on what this group is and who it is for. */
+  readonly note: string;
+  readonly layout: PackageLayout;
 }
 
-/** Difficulty banding for a surf break. */
-export type BreakLevel = "Beginner" | "Intermediate" | "Advanced";
+export interface FeaturePackageGroup extends PackageGroupBase {
+  readonly layout: "feature";
+  readonly packages: readonly FeaturePackage[];
+}
+
+export interface ListPackageGroup extends PackageGroupBase {
+  readonly layout: "list";
+  readonly packages: readonly Package[];
+}
+
+/** Discriminated so a `feature` group cannot compile without photography. */
+export type PackageGroup = FeaturePackageGroup | ListPackageGroup;
+
+/** Which half of the brand a spot belongs to. */
+export type Discipline = "surf" | "golf";
+
+/** Difficulty banding, shared across both disciplines. */
+export type SpotLevel =
+  | "Beginner"
+  | "Intermediate"
+  | "Advanced"
+  | "All Levels";
 
 /** Wave direction. */
 export type BreakHand = "Right" | "Left" | "Both";
 
-/** A named surf break within reach of the house. */
-export interface SurfBreak {
+interface SpotBase {
   readonly id: string;
   readonly name: string;
-  readonly hand: BreakHand;
-  readonly level: BreakLevel;
+  readonly level: SpotLevel;
   /** Minutes from the front door, by car. */
   readonly minutesAway: number;
-  /** Swell direction and size the break wants. */
-  readonly worksOn: string;
   readonly note: string;
 }
+
+/** A named surf break within reach. */
+export interface SurfSpot extends SpotBase {
+  readonly discipline: "surf";
+  readonly hand: BreakHand;
+  /** Swell direction and size the break wants. */
+  readonly worksOn: string;
+}
+
+/** A golf course within reach. */
+export interface GolfSpot extends SpotBase {
+  readonly discipline: "golf";
+  readonly holes: number;
+  /** What the course asks of you — the golf equivalent of `worksOn`. */
+  readonly plays: string;
+}
+
+/**
+ * Somewhere this business takes you.
+ *
+ * A discriminated union rather than two parallel lists, so the Points track
+ * carries breaks and courses in one run. That is the brand's whole argument —
+ * two sports, one coast — made structurally instead of asserted in copy.
+ */
+export type Spot = SurfSpot | GolfSpot;
 
 /** One phase of the day. */
 export interface DayMoment {
@@ -126,9 +197,13 @@ export interface Note {
 
 /** Who the property is. Drives metadata, structured data and the social card. */
 export interface PropertyIdentity {
-  /** Full trading name, e.g. "Alaïa Surf School". */
+  /** Full trading name, e.g. "Ride and Swing". */
   readonly name: string;
-  /** Short mark set in Bodoni at hero scale. Keep it to one word. */
+  /**
+   * Short mark set in the display face at hero scale. Keep it to two words at
+   * the outside — the hero sizes it against the viewport, and a longer mark
+   * forces the clamp down until it stops reading as a wordmark.
+   */
   readonly wordmark: string;
   readonly tagline: string;
   /** Where the name comes from. Printed in the footer. */
@@ -172,7 +247,7 @@ export interface CoastConfig {
 /** Search metadata that is genuinely property-specific. */
 export interface SeoConfig {
   readonly keywords: readonly string[];
-  /** Rendered into the `LodgingBusiness` JSON-LD as `amenityFeature`. */
+  /** Rendered into the `SportsActivityLocation` JSON-LD as `amenityFeature`. */
   readonly amenities: readonly string[];
 }
 
@@ -198,16 +273,8 @@ export interface ManifestoCopy {
 }
 
 export interface PackagesCopy extends SectionCopy {
-  /** What every price includes, and anything held back from the list above. */
+  /** What every price includes, and anything held back from the lists above. */
   readonly footnote: string;
-}
-
-export interface TestimonialsCopy extends SectionCopy {
-  /** Aggregate score as published by the review source. */
-  readonly ratingValue: number;
-  readonly reviewCount: number;
-  /** Where the score comes from. Printed, because an unsourced score is noise. */
-  readonly source: string;
 }
 
 export interface PointsCopy extends SectionCopy {
@@ -253,13 +320,11 @@ export interface PropertyConfig {
   readonly placePhoto: PhotoBrief;
   readonly manifesto: ManifestoCopy;
   readonly packagesCopy: PackagesCopy;
-  readonly packages: readonly Package[];
+  readonly packageGroups: readonly PackageGroup[];
   readonly pointsCopy: PointsCopy;
-  readonly breaks: readonly SurfBreak[];
+  readonly spots: readonly Spot[];
   readonly dayCopy: DayCopy;
   readonly day: readonly DayMoment[];
   readonly table: TableCopy;
-  readonly testimonialsCopy: TestimonialsCopy;
-  readonly testimonials: readonly Testimonial[];
   readonly enquire: EnquireCopy;
 }

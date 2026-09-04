@@ -5,10 +5,10 @@ import type { PropertyConfig } from "@/lib/types";
  *  THE ONLY FILE A NEW CLIENT NEEDS.
  * ============================================================================
  *
- * This site is a template for small hospitality and surf operators on the
+ * This site is a template for small sport and hospitality operators on the
  * Moroccan Atlantic. Everything that identifies a business lives in this
  * object: the name, the coastline the live almanac reads from, the packages,
- * the breaks, and every line of section copy. No component holds a
+ * the spots, and every line of section copy. No component holds a
  * business-specific string.
  *
  * To pitch a new prospect:
@@ -16,42 +16,48 @@ import type { PropertyConfig } from "@/lib/types";
  *   1. Edit `identity` — name, wordmark, contact, url.
  *   2. Edit `coast` — the real latitude/longitude, and the bearing its shore
  *      faces. The almanac band retargets itself; nothing else to do.
- *   3. Edit `packages` and `breaks` to what they actually sell and actually surf.
+ *   3. Edit `packageGroups` and `spots` to what they actually sell and where
+ *      they actually take people.
  *   4. Rewrite the copy blocks in their voice.
  *   5. Drop photography into `src/assets/photos/` against the slot ids in
  *      `@/lib/photos`. Unbound slots render their art-direction brief, so an
  *      unshot business is still presentable.
  *
  * ---------------------------------------------------------------------------
- *  Current tenant: Alaïa Surf School, Taghazout.
+ *  Current tenant: Ride and Swing, Taghazout.
  * ---------------------------------------------------------------------------
  *
- * Every fact below — name, phone, packages, prices, schedule, rating and the
- * three quoted reviews — comes from the client profile at
- * `intake/alaia/data.json` and is reproduced verbatim where it is quoted.
- * Two fields could not be sourced from it and are marked TO CONFIRM inline.
+ * Surf and golf sold as one coast. Package names and prices are the client's
+ * own rate card, reproduced exactly — including the two currencies, which is
+ * how they quote it.
+ *
+ * Fields that could not be sourced from the client's materials are marked
+ * TO CONFIRM inline. They are placeholders, not guesses, and every one of them
+ * must be filled before this goes anywhere near a customer.
  */
 export const PROPERTY: PropertyConfig = {
   identity: {
-    name: "Alaïa Surf School",
-    wordmark: "ALAÏA",
-    tagline: "Authentic Moroccan Surf Experiences",
-    /** Footer standing line. Says where the school is, not what it promises. */
+    name: "Ride and Swing",
+    wordmark: "RIDE & SWING",
+    tagline: "Surf & Golf on the Atlantic",
+    /** Footer standing line. Says where the business is, not what it promises. */
     provenance:
-      "Tawenza Square, Taghazout — the Atlantic at the end of the street, and a coast that was surfed by the people who live on it long before anyone flew in for it.",
+      "Taghazout, on the Souss coast — a cliff-top course above the Atlantic and, twenty minutes down the same road, the points that made this stretch of water worth flying for.",
     description:
-      "A surf school on Tawenza Square, Taghazout, Morocco. Professional local coaching, premium equipment and a transfer each morning to whichever point is working — group classes, private lessons, surf and yoga.",
-    location: "Tawenza Square, Taghazout, Morocco",
+      "Surf and golf on one coast, in one day. Cliff-top rounds at Tazegzout Golf Course above the Atlantic, coached surf sessions on the Taghazout points, and combined days that put you on both.",
+    /** TO CONFIRM — no street address was supplied in the client intake. */
+    location: "Taghazout, Morocco",
     locality: "Taghazout",
     region: "Souss-Massa",
     countryCode: "MA",
     country: "Morocco",
     coordinates: "30.5442° N, 9.7108° W",
-    /** TO CONFIRM — read off the school's own printed flyers in the intake. */
-    email: "surfschool.alaia@gmail.com",
-    phone: "+212 6 64 08 53 28",
-    /** TO CONFIRM — the rash vests read WWW.ALAIA.•• but the TLD is not legible. */
-    url: "https://alaia.ma",
+    /** TO CONFIRM — placeholder. No address was supplied. */
+    email: "hello@rideandswing.ma",
+    /** TO CONFIRM — placeholder digits. Do not publish this. */
+    phone: "+212 000 000 000",
+    /** TO CONFIRM — placeholder. No domain was supplied. */
+    url: "https://rideandswing.ma",
   },
 
   /**
@@ -66,28 +72,28 @@ export const PROPERTY: PropertyConfig = {
 
   seo: {
     keywords: [
-      "surf school Taghazout",
-      "surf lessons Morocco",
-      "learn to surf Taghazout",
-      "private surf lesson Agadir",
-      "surf and yoga Morocco",
-      "Taghazout surf camp",
+      "surf and golf Morocco",
+      "Tazegzout golf course",
+      "golf Taghazout",
+      "surf lessons Taghazout",
+      "surf and golf package Agadir",
+      "Taghazout Bay golf and surf",
     ],
     amenities: [
-      "Group surf classes",
-      "Private coaching",
-      "Surf and yoga",
-      "Premium equipment included",
-      "Transfer to the spot",
+      "Combined surf and golf days",
+      "Course guiding, 9 and 18 holes",
+      "Group and private surf coaching",
+      "Surf guiding for experienced surfers",
+      "Equipment included",
     ],
   },
 
   nav: [
-    { label: "The School", href: "#school" },
+    { label: "The Idea", href: "#idea" },
     { label: "Packages", href: "#packages" },
-    { label: "The Points", href: "#points" },
+    { label: "Where We Play", href: "#points" },
     { label: "A Day", href: "#day" },
-    { label: "The Table", href: "#table" },
+    { label: "Two Worlds", href: "#two-worlds" },
   ],
 
   /**
@@ -112,14 +118,14 @@ export const PROPERTY: PropertyConfig = {
 
   hero: {
     subtitle:
-      "A surf school on Tawenza Square, Taghazout. Local coaches, premium boards, and a transfer every morning to whichever point is working.",
-    ogStrapline: "Coaching on the Taghazout points",
+      "Eighteen holes on a cliff above the Atlantic, and the points that ocean feeds twenty minutes down the road. Most people book both.",
+    ogStrapline: "Surf & golf, one coast",
   },
 
   heroPhoto: {
     id: "hero",
     direction:
-      "A student up and riding on a clean blue wall, the coach still in the water behind him. Water fills the frame; the top half is open ocean, which is what keeps the wordmark legible over it.",
+      "The class lined up on their boards before the session, the Atlantic filling the frame behind them and a very large sky above. The sky is what keeps the wordmark legible, so the horizon sits low.",
     tone: "ocean",
     ratio: "21/9",
   },
@@ -127,123 +133,224 @@ export const PROPERTY: PropertyConfig = {
   placePhoto: {
     id: "place",
     direction:
-      "The beach at the end of the session — a class sitting on the sand with the town stacked behind them. Documentary, not aspirational: this is a working coast and it should look like one.",
+      "The bay end to end — the beach, the hills behind it, the village stacked at the far edge and a class working on the sand. Documentary, not aspirational: this is a working coast and it should look like one.",
     tone: "noon",
     ratio: "3/2",
   },
 
   manifesto: {
-    eyebrow: "The School",
+    eyebrow: "The Idea",
     statement:
-      "Local coaches, world-class points, and a group that stops being strangers by Tuesday.",
+      "A cliff-top course above the Atlantic, and the waves that ocean makes — twenty minutes apart.",
     body: [
-      "Alaïa is a surf school first. The coaches are from this coast, they surf it out of season as well as in, and they read the chart every morning before deciding where the vans go. That is the whole method: put people in front of the right wave for their level, on the right day, with equipment that does not fight them.",
-      "The rest is Berber hospitality, and it is not a marketing line. Breakfast before the wave check, a shared lunch after the session, yoga in the shala most evenings, and a table that everyone ends up at. People arrive booked onto a lesson and leave having joined something.",
+      "Most people come to this coast for one of the two and find out about the other by accident. Ride and Swing exists because there is no reason to choose. The course sits on the cliff above Taghazout Bay with the ocean in play on half the holes; the points that ocean feeds are a short drive down the same road. One morning covers both.",
+      "The offer is built that way. You can book a round or a session on its own, and plenty of people do. But the combined days are the point of the business: practice or a full round in the cool of the morning, then the water when the wind has settled. Equipment for both is included, and the order of the day is set on the day, by the swell and the tee sheet rather than by a timetable.",
     ],
-    pullQuote: "You are not booking a lesson. You are joining the morning.",
+    pullQuote: "The same ocean decides both halves of your day.",
   },
 
   packagesCopy: {
     eyebrow: "Packages",
-    title: "Four ways to spend a day in the water.",
+    title: "Book the pair, or book either half.",
     footnote:
-      "Prices are per person per day and include the transfer to the spot, a towel, and premium equipment — board, wetsuit and rash vest. Every package is open to all levels; which spot your group surfs is decided at the morning wave check, not by a timetable.",
+      "Combined days are quoted in dirhams and standalone sessions in euro, exactly as we price them. Surf packages include board, wetsuit and the transfer to whichever point is working. Golf prices cover the round as listed; buggy, caddie and club rental are quoted separately. TO CONFIRM — confirm exactly what green fees do and do not include before this line is published.",
   },
 
-  packages: [
+  packageGroups: [
     {
-      id: "group-class",
-      name: "Group Surf Class",
-      meaning: "The morning most people come here for",
-      level: "All Levels",
-      duration: "2 hours a day",
-      includes: [
-        "Two hours of coaching a day, in a small group",
-        "Transfer to the best spot on the day",
-        "Towel and premium surfing equipment",
+      id: "combined",
+      title: "Surf & Golf",
+      note: "Both halves of the coast in one day. This is what the business is for.",
+      layout: "feature",
+      packages: [
+        {
+          id: "surf-and-practice",
+          name: "Surf Session & Golf Practice",
+          meaning: "The short version of the idea, and the easiest way in",
+          level: "All Levels",
+          duration: "A morning and an afternoon",
+          includes: [
+            "One coached surf session, board and wetsuit included",
+            "One golf practice session on the range and the putting green",
+            "Transfer between the course and the water",
+          ],
+          priceDisplay: "800 DHS",
+          photo: {
+            id: "putting-green",
+            direction:
+              "A putt on a cut green, pin in, the flag still. Hard low sun, long shadow, nobody watching. The green reads as maintained ground against everything arid behind it.",
+            tone: "fairway",
+            ratio: "4/5",
+          },
+        },
+        {
+          id: "surf-and-nine",
+          name: "Surf Session & Nine Holes",
+          meaning: "A guided nine in the morning, the water after it",
+          level: "All Levels",
+          duration: "Nine holes plus a session",
+          includes: [
+            "One coached surf session, board and wetsuit included",
+            "Nine holes on the course with a guide alongside you",
+            "Transfer between the course and the water",
+          ],
+          priceDisplay: "1750 DHS",
+          photo: {
+            id: "board-line",
+            direction:
+              "Soft-tops laid out in a receding line on wet sand, students standing on them mid-drill. Shot low and along the row so the boards run out of frame. Flat overcast light.",
+            tone: "noon",
+            ratio: "4/5",
+          },
+        },
+        {
+          id: "surf-and-eighteen",
+          name: "Surf Session & Eighteen Holes",
+          meaning: "The full round, and still in the water the same day",
+          level: "All Levels",
+          duration: "Eighteen holes plus a session",
+          includes: [
+            "One coached surf session, board and wetsuit included",
+            "Eighteen holes on the course with a guide alongside you",
+            "Transfer between the course and the water",
+          ],
+          priceDisplay: "2150 DHS",
+          photo: {
+            id: "tee-shot",
+            direction:
+              "The top of a follow-through against open sky, cactus and scrub holding the middle distance. Shot from behind and low, so the swing sits against nothing but light.",
+            tone: "fairway",
+            ratio: "4/5",
+          },
+        },
       ],
-      priceEur: 25,
-      photo: {
-        id: "lesson-lineup",
-        direction:
-          "A class on the sand before the session, boards laid out in a row, the sea flat behind them. Midday, hard light, nobody posing.",
-        tone: "noon",
-        ratio: "4/5",
-      },
     },
     {
-      id: "surf-and-dine",
-      name: "Surf & Dine",
-      meaning: "A whole day, food included, from breakfast to late lunch",
-      level: "All Levels",
-      duration: "Breakfast through lunch",
-      includes: [
-        "Healthy breakfast before the wave check",
-        "Session with the coaches, equipment included",
-        "Shower, then a shared lunch at the long table",
+      id: "golf-only",
+      title: "Golf",
+      note: "On the course at Tazegzout, with or without someone alongside you.",
+      layout: "list",
+      packages: [
+        {
+          id: "golf-practice",
+          name: "Practice",
+          meaning: "Range and putting green, everything provided",
+          level: "All Levels",
+          duration: "30 minutes",
+          includes: ["Range balls", "Putting green", "Club rental"],
+          priceDisplay: "500 DHS all in",
+        },
+        {
+          id: "golf-nine",
+          name: "Nine Holes, Guided",
+          meaning: "A guide on the bag for the front nine",
+          level: "All Levels",
+          duration: "Nine holes",
+          includes: ["Guiding on the course for nine holes"],
+          priceDisplay: "45€",
+        },
+        {
+          id: "golf-eighteen",
+          name: "Eighteen Holes, Guided",
+          meaning: "The full round with a guide alongside",
+          level: "All Levels",
+          duration: "Eighteen holes",
+          includes: ["Guiding on the course for eighteen holes"],
+          priceDisplay: "80€",
+        },
       ],
-      priceEur: 35,
-      photo: {
-        id: "boards-dawn",
-        direction:
-          "Boards and rash vests set out at the school's frontage at first light, the ocean a flat band beyond the road. Golden hour, no people.",
-        tone: "dawn",
-        ratio: "4/5",
-      },
     },
     {
-      id: "private-lesson",
-      name: "Private Surf Lesson",
-      meaning: "One coach, one surfer, three hours of it",
-      level: "All Levels",
-      duration: "3 hours a day",
-      includes: [
-        "Three hours of one-to-one coaching a day",
-        "Transfer to the spot that suits your level",
-        "Towel and high-quality equipment",
+      id: "surf-only",
+      title: "Surf",
+      note: "Coaching for people learning, guiding for people who already surf.",
+      layout: "list",
+      packages: [
+        {
+          id: "surf-group",
+          name: "Group Surf Lesson",
+          meaning: "Coached in a small group, the usual way in",
+          level: "All Levels",
+          duration: "One session",
+          includes: [
+            "Coaching in a small group",
+            "Board and wetsuit",
+            "Transfer to the spot working that day",
+          ],
+          priceDisplay: "40€ pp",
+        },
+        {
+          id: "surf-private",
+          name: "Private Surf Lesson",
+          meaning: "One coach, one surfer",
+          level: "All Levels",
+          duration: "One session",
+          includes: [
+            "One-to-one coaching",
+            "Board and wetsuit",
+            "Transfer to the spot that suits your level",
+          ],
+          priceDisplay: "80€",
+        },
+        {
+          id: "surf-guiding",
+          name: "Surf Guiding",
+          meaning: "For surfers who need the spot, not the lesson",
+          level: "Intermediate",
+          duration: "One session, up to three surfers",
+          includes: [
+            "A guide who reads the chart and picks the spot",
+            "Transfer to the break",
+            "Maximum three surfers",
+          ],
+          priceDisplay: "80€",
+        },
+        {
+          id: "surf-coaching",
+          name: "Surf Coaching",
+          meaning: "Video and analysis for surfers working on something specific",
+          level: "Intermediate",
+          duration: "One session",
+          includes: [
+            "Coaching aimed at one thing you are trying to fix",
+            "Board and wetsuit if you need them",
+          ],
+          priceDisplay: "80€ pp",
+        },
       ],
-      priceEur: 50,
-      photo: {
-        id: "shorebreak-walk",
-        direction:
-          "A coach walking two students into the shorebreak, boards under their arms, the headland behind. Taken from the sand, mid-morning.",
-        tone: "noon",
-        ratio: "4/5",
-      },
-    },
-    {
-      id: "surf-and-yoga",
-      name: "Surf & Yoga Package",
-      meaning: "Adventure in the morning, the mat afterwards",
-      level: "All Levels",
-      duration: "Session plus yoga",
-      includes: [
-        "Surf coaching with the group",
-        "Surfboard and wetsuit included",
-        "Post-surf yoga session in the shala",
-      ],
-      priceEur: 50,
-      photo: {
-        id: "warmup-sand",
-        direction:
-          "Warm-up on the sand before the session — arms crossed, eyes closed, the rest of the group blurred behind. Low afternoon sun.",
-        tone: "dusk",
-        ratio: "4/5",
-      },
     },
   ],
 
   pointsCopy: {
-    eyebrow: "The Points",
-    title: "The transfer goes wherever the swell is best that morning.",
+    eyebrow: "Where We Play",
+    title: "One course and seven points, all inside an hour.",
     intro:
-      "Seven breaks inside an hour of the school, roughly in the order the coaches reach for them. Which one your class surfs is decided at the wave check — by the buoy, not by us.",
-    trackLabel: "Surf breaks near the school",
+      "The course is fixed. Which point you surf is not — that is decided at the morning check, by the buoy rather than by us. Roughly in the order the coaches reach for them.",
+    trackLabel: "The course and the surf breaks we use",
   },
 
-  breaks: [
+  /**
+   * Golf and surf in one list, deliberately.
+   *
+   * The Points track is where the brand's argument gets made structurally:
+   * a course and seven breaks scrolling past in the same row says "one coast,
+   * two sports" more convincingly than any sentence in the manifesto does.
+   */
+  spots: [
+    {
+      id: "tazegzout-golf",
+      discipline: "golf",
+      name: "Tazegzout Golf Course",
+      level: "All Levels",
+      holes: 18,
+      plays: "Cliff-top, Atlantic in play",
+      /** TO CONFIRM — drive time from the meeting point was not supplied. */
+      minutesAway: 5,
+      note: "Eighteen holes cut into the hillside above Taghazout Bay, with the ocean open behind the greens on the seaward holes and arid scrub and cactus off the fairways. Wind off the Atlantic is the defence; it gets up through the day, which is the argument for an early tee time.",
+    },
     {
       id: "anchor-point",
+      discipline: "surf",
       name: "Anchor Point",
       hand: "Right",
       level: "Advanced",
@@ -253,6 +360,7 @@ export const PROPERTY: PropertyConfig = {
     },
     {
       id: "panoramas",
+      discipline: "surf",
       name: "Panoramas",
       hand: "Right",
       level: "Intermediate",
@@ -262,6 +370,7 @@ export const PROPERTY: PropertyConfig = {
     },
     {
       id: "banana",
+      discipline: "surf",
       name: "Banana Point",
       hand: "Right",
       level: "Beginner",
@@ -271,6 +380,7 @@ export const PROPERTY: PropertyConfig = {
     },
     {
       id: "boilers",
+      discipline: "surf",
       name: "Boilers",
       hand: "Right",
       level: "Advanced",
@@ -280,6 +390,7 @@ export const PROPERTY: PropertyConfig = {
     },
     {
       id: "imi-ouaddar",
+      discipline: "surf",
       name: "Imi Ouaddar",
       hand: "Right",
       level: "Intermediate",
@@ -289,6 +400,7 @@ export const PROPERTY: PropertyConfig = {
     },
     {
       id: "tamri",
+      discipline: "surf",
       name: "Tamri",
       hand: "Right",
       level: "Advanced",
@@ -298,6 +410,7 @@ export const PROPERTY: PropertyConfig = {
     },
     {
       id: "imsouane",
+      discipline: "surf",
       name: "Imsouane",
       hand: "Right",
       level: "Beginner",
@@ -309,102 +422,72 @@ export const PROPERTY: PropertyConfig = {
 
   dayCopy: {
     eyebrow: "A Day",
-    title: "The wave check writes the timetable.",
+    title: "The tee sheet and the buoy write the timetable.",
     intro:
-      "Four parts to a day here, and only the order is fixed. What happens inside each one is decided by the swell, the wind and the tide on the morning.",
+      "Four parts to a combined day, and only the order is fixed. Which half comes first is decided on the morning — the wind is usually the deciding vote.",
     footnote:
-      "Sessions move with the conditions · your coach confirms the shape of the day at breakfast",
+      "Order moves with the conditions · we confirm the shape of your day the evening before",
   },
 
   day: [
     {
-      marker: "Morning",
-      title: "Healthy breakfast & wave check",
-      body: "Breakfast at the school while the coaches read the swell, the period and the wind, and decide where the vans are going. Nothing is fixed the night before, because the ocean is not.",
+      marker: "Early",
+      title: "Tee time & wave check",
+      body: "Out on the course while the air is still cool and the wind is still off the land. Somebody reads the swell, the period and the wind at the same time, because that is what decides where the afternoon happens.",
     },
     {
       marker: "Mid-Day",
-      title: "Surf sessions & transfers",
-      body: "Group and private sessions, with the transfer to whichever spot is working for your level. Boards, wetsuits and rash vests are handed out at the school — you carry nothing to the beach but yourself.",
+      title: "The round, or the range",
+      body: "Nine or eighteen with a guide alongside, or half an hour on the range and the putting green if you are here for the shorter combination. Clubs are provided either way.",
     },
     {
       marker: "Afternoon",
-      title: "Shared lunch & free time",
-      body: "A shower, then lunch at the long table with whoever surfed that morning. After that the afternoon is yours: the second session, the market, or nothing at all.",
+      title: "The session",
+      body: "Transfer to whichever point suits your level on the day. Boards and wetsuits are handed out before you leave — you carry nothing to the beach but yourself.",
     },
     {
       marker: "Evening",
-      title: "Yoga shala & family dinners",
-      body: "Yoga in the shala on most evenings, and dinner with the group after it. This is the part guests write about afterwards, and it is the part we are least willing to change.",
+      title: "Down tools",
+      body: "The wind is usually up by now and the water has done what it was going to do. Most people are done. Anyone who is not gets the second session, if the chart says it is worth it.",
     },
   ],
 
   table: {
-    eyebrow: "The Table",
-    statement: "Breakfast before the session. Lunch with whoever surfed it.",
+    eyebrow: "Two Worlds",
+    statement: "One coast that happens to be good at two things.",
     body: [
-      "Surf & Dine exists because the best hour of the day here is not always the one in the water. It is the one after: everyone back, showered, hungry, arguing about a wave that only two people saw. We built the school around a table so that hour has somewhere to happen.",
-      "Breakfast is healthy and early, because it runs against the wave check. Lunch is shared and unhurried, because nothing follows it. Most evenings there is yoga in the shala and then dinner, and by the third day nobody asks where to sit.",
+      "Golf and surf are not obviously the same holiday. One is early, quiet and precise; the other is loud, cold and largely outside your control. What they share here is the Atlantic — the same swell that makes the points work is the wind that defends the course, and the same morning decides both.",
+      "That is the whole business case. Nobody flies to Taghazout to do one thing badly. The combined days exist so that the half of your trip you did not plan for turns out to be the half you talk about.",
     ],
     photo: {
-      id: "common-room",
+      id: "the-green",
       direction:
-        "The school's common room from the doorway: low sofas, the board rack along the right wall, glass the full width and the beach through it. Midday, natural light only.",
-      tone: "interior",
+        "A putt on a cut green, pin in, the arid hillside rising behind it. Low sun raking across the grass so the mown lines read against everything unwatered around them.",
+      tone: "fairway",
       ratio: "16/9",
     },
     facts: [
-      { label: "Surf & Dine", value: "€35" },
-      { label: "Yoga", value: "Most evenings" },
+      { label: "Course", value: "18 holes" },
+      { label: "To the water", value: "20 min" },
     ],
   },
 
-  testimonialsCopy: {
-    eyebrow: "In Their Words",
-    title: "Forty-six reviews, averaging 4.9.",
-    ratingValue: 4.9,
-    reviewCount: 46,
-    source: "Guest reviews",
-  },
-
-  /** Quoted verbatim, in French, exactly as the guests wrote them. */
-  testimonials: [
-    {
-      quote:
-        "Très bonne découverte du surf. Première fois que j'en faisais. Taha était génial pour l'apprentissage.",
-      author: "Jean-Yves Muzelet",
-      lang: "fr",
-    },
-    {
-      quote:
-        "Superbe expérience vécue entre amis pendant 3 jours. Khaoula s'assurait toujours par messages du bon déroulé des séances. Nous avons eu Abdel, le meilleur des coach !",
-      author: "Marie Blanc",
-      lang: "fr",
-    },
-    {
-      quote:
-        "Instructeur très sympathique, matériel et combinaison propres rincées et belle qualité ! On recommande.",
-      author: "M H",
-      lang: "fr",
-    },
-  ],
-
   enquire: {
     eyebrow: "Book",
-    title: "Call or message us. We answer the same day.",
-    body: "Tell us your dates, how many of you there are, and whether anyone has stood on a board before. We will tell you honestly which package fits, and what the swell tends to do that week.",
+    title: "Tell us your dates. We answer the same day.",
+    body: "Say how many of you there are, which half you are confident about, and whether anyone has stood on a board or held a club before. We will tell you honestly which combination fits and what the swell tends to do that week.",
     notes: [
       {
         label: "Where we are",
-        body: "Tawenza Square, Taghazout. Agadir Al Massira (AGA) is about an hour by road.",
+        body: "Taghazout, on the Souss coast. Agadir Al Massira (AGA) is about an hour by road.",
       },
       {
         label: "What to bring",
-        body: "Nothing. Board, wetsuit, rash vest and towel are included in every package.",
+        body: "Nothing for the water — board, wetsuit and transfer are included. Clubs can be provided; bring your own if you are particular.",
       },
       {
-        label: "Best swell",
-        body: "October to March. September and April are quieter and still good.",
+        label: "Best season",
+        body: "October to March for swell. The course plays year round and is at its best early.",
       },
     ],
   },

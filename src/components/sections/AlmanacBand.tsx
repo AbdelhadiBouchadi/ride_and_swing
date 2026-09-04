@@ -15,10 +15,10 @@ export interface AlmanacBandProps {
  */
 export function AlmanacBand({ readings }: AlmanacBandProps): React.JSX.Element {
   return (
-    <div className="border-t border-sand/20 bg-basalt/55 backdrop-blur-md">
+    <div className="border-t border-horizon/20 bg-abyss/55 backdrop-blur-md">
       <div className="gutter">
         <ul className="flex snap-x snap-mandatory gap-8 overflow-x-auto py-5 sm:gap-12 sm:py-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          <li className="label-mono shrink-0 snap-start self-center text-ochre-light">
+          <li className="label-mono shrink-0 snap-start self-center text-fairway-light">
             This morning
           </li>
           {readings.map((reading) => (
@@ -27,16 +27,16 @@ export function AlmanacBand({ readings }: AlmanacBandProps): React.JSX.Element {
               data-hero-reading
               className="shrink-0 snap-start"
             >
-              <span className="label-mono block text-sand/55">
+              <span className="label-mono block text-horizon/55">
                 {reading.label}
               </span>
               <span
-                className="mt-1.5 block font-mono text-lg text-sand sm:text-xl"
+                className="mt-1.5 block font-mono text-lg text-horizon sm:text-xl"
                 data-numeric
               >
                 {reading.value}
                 {reading.unit ? (
-                  <span className="ml-0.5 text-xs text-sand/60">
+                  <span className="ml-0.5 text-xs text-horizon/60">
                     {reading.unit}
                   </span>
                 ) : null}

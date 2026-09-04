@@ -7,11 +7,11 @@ export function SiteFooter(): React.JSX.Element {
   const year = new Date().getFullYear();
 
   return (
-    <footer data-ground="dark" className="grain relative bg-basalt text-sand">
+    <footer data-ground="dark" className="grain relative bg-abyss text-horizon">
       <div className="gutter py-20 sm:py-28">
         <div className="flex flex-col gap-16 lg:flex-row lg:justify-between">
           <div className="max-w-md">
-            <p className="font-display text-[clamp(3rem,10vw,6rem)] leading-[0.85] tracking-[-0.04em]">
+            <p className="font-display text-[clamp(2rem,7vw,4rem)] leading-[0.9] tracking-[-0.02em]">
               {SITE.wordmark}
             </p>
             <p className="mt-6 text-sm leading-relaxed text-haze-dim">
@@ -21,13 +21,13 @@ export function SiteFooter(): React.JSX.Element {
 
           <div className="grid grid-cols-2 gap-x-10 gap-y-12 sm:grid-cols-3">
             <div>
-              <h2 className="label-mono mb-5 text-ochre-light">The School</h2>
+              <h2 className="label-mono mb-5 text-fairway-light">Explore</h2>
               <ul className="flex flex-col gap-3">
                 {NAV_ITEMS.map((item) => (
                   <li key={item.href}>
                     <a
                       href={item.href}
-                      className="text-sm text-sand/85 transition-colors duration-200 hover:text-ochre-light"
+                      className="text-sm text-horizon/85 transition-colors duration-200 hover:text-fairway-light"
                     >
                       {item.label}
                     </a>
@@ -37,8 +37,8 @@ export function SiteFooter(): React.JSX.Element {
             </div>
 
             <div>
-              <h2 className="label-mono mb-5 text-ochre-light">Find us</h2>
-              <address className="flex flex-col gap-3 not-italic text-sm text-sand/85">
+              <h2 className="label-mono mb-5 text-fairway-light">Find us</h2>
+              <address className="flex flex-col gap-3 not-italic text-sm text-horizon/85">
                 <span>{SITE.location}</span>
                 <span className="font-mono text-xs text-haze-dim" data-numeric>
                   {SITE.coordinates}
@@ -47,12 +47,12 @@ export function SiteFooter(): React.JSX.Element {
             </div>
 
             <div>
-              <h2 className="label-mono mb-5 text-ochre-light">Reach us</h2>
+              <h2 className="label-mono mb-5 text-fairway-light">Reach us</h2>
               <ul className="flex flex-col gap-3 text-sm">
                 <li>
                   <a
                     href={`mailto:${SITE.email}`}
-                    className="text-sand/85 transition-colors duration-200 hover:text-ochre-light"
+                    className="text-horizon/85 transition-colors duration-200 hover:text-fairway-light"
                   >
                     {SITE.email}
                   </a>
@@ -60,7 +60,7 @@ export function SiteFooter(): React.JSX.Element {
                 <li>
                   <a
                     href={`tel:${SITE.phone.replace(/\s/g, '')}`}
-                    className="text-sand/85 transition-colors duration-200 hover:text-ochre-light"
+                    className="text-horizon/85 transition-colors duration-200 hover:text-fairway-light"
                   >
                     {SITE.phone}
                   </a>
@@ -70,7 +70,7 @@ export function SiteFooter(): React.JSX.Element {
           </div>
         </div>
 
-        <div className="mt-20 flex flex-col gap-4 border-t border-sand/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-20 flex flex-col gap-4 border-t border-horizon/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="label-mono text-haze-dim">
             © {year} {SITE.name}
           </p>

@@ -8,15 +8,19 @@ import { cn } from "@/lib/utils";
  * Tonal grounds derived from the brand ramp, used when a brief has no
  * photograph yet. Each stands in for a real frame shot at that time of day, so
  * a plate never reads as "missing image".
+ *
+ * `dawn` and `dusk` deliberately run in opposite directions — light-top for
+ * the morning, dark-top for the evening — because built from one ramp they
+ * would otherwise be the same gradient twice.
  */
 const TONE_GROUND: Record<PhotoTone, string> = {
-  dawn: "linear-gradient(168deg, #3c4a52 0%, #6b7f7a 38%, #c4703a 78%, #e8dfd3 100%)",
-  noon: "linear-gradient(172deg, #e8dfd3 0%, #ddd2c3 44%, #c4a98c 76%, #8a5a44 100%)",
-  dusk: "linear-gradient(166deg, #2a322f 0%, #8a5a44 46%, #c4703a 74%, #d98a52 100%)",
-  interior:
-    "linear-gradient(150deg, #f5f0e8 0%, #e8dfd3 40%, #ddd2c3 70%, #8a5a44 100%)",
+  dawn: "linear-gradient(168deg, #ded9ce 0%, #93a6ae 34%, #1d5a72 72%, #142e3b 100%)",
+  noon: "linear-gradient(172deg, #edeae3 0%, #ded9ce 42%, #93a6ae 72%, #75878f 100%)",
+  dusk: "linear-gradient(166deg, #0b1c26 0%, #1d5a72 44%, #75878f 76%, #ded9ce 100%)",
+  fairway:
+    "linear-gradient(160deg, #79b98f 0%, #2e6b45 42%, #1f5533 72%, #142e3b 100%)",
   ocean:
-    "linear-gradient(180deg, #6b7f7a 0%, #4a5a55 42%, #2a322f 74%, #1c2321 100%)",
+    "linear-gradient(180deg, #75878f 0%, #1d5a72 40%, #142e3b 74%, #0b1c26 100%)",
 };
 
 /** Tones that depict open water get a horizon rule at the optical third. */
@@ -68,7 +72,7 @@ export function PhotoPlate({
     return (
       <figure
         className={cn(
-          "relative overflow-hidden bg-sand-deep",
+          "relative overflow-hidden bg-horizon-deep",
           graded && "photo-film",
           ratioClass,
           className,
@@ -98,16 +102,16 @@ export function PhotoPlate({
       {HAS_HORIZON.has(brief.tone) ? (
         <span
           aria-hidden="true"
-          className="absolute inset-x-0 top-[38%] h-px bg-bone/25"
+          className="absolute inset-x-0 top-[38%] h-px bg-chalk/25"
         />
       ) : null}
 
       {showBrief ? (
-        <figcaption className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-1.5 bg-linear-to-t from-basalt/80 to-transparent p-4 pt-12 sm:p-6 sm:pt-16">
-          <span className="label-mono text-bone/60">
+        <figcaption className="absolute inset-x-0 bottom-0 z-10 flex flex-col gap-1.5 bg-linear-to-t from-abyss/80 to-transparent p-4 pt-12 sm:p-6 sm:pt-16">
+          <span className="label-mono text-chalk/60">
             Frame to shoot · {brief.ratio}
           </span>
-          <span className="max-w-prose text-[0.8125rem] leading-snug text-bone/90">
+          <span className="max-w-prose text-[0.8125rem] leading-snug text-chalk/90">
             {brief.direction}
           </span>
         </figcaption>

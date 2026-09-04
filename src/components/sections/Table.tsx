@@ -8,16 +8,16 @@ import { TABLE } from '@/lib/content';
 /** Server Component. */
 export function Table(): React.JSX.Element {
   return (
-    <section id="table" data-ground="dark" className="grain relative bg-clay py-section text-bone">
+    <section id="two-worlds" data-ground="dark" className="grain relative bg-tide py-section text-chalk">
       <div className="gutter">
         <div className="flex items-center gap-4">
-          <span className="label-mono text-bone/70">{TABLE.eyebrow}</span>
-          <span aria-hidden="true" className="h-px w-24 bg-bone/30" />
+          <span className="label-mono text-chalk/70">{TABLE.eyebrow}</span>
+          <span aria-hidden="true" className="h-px w-24 bg-chalk/30" />
         </div>
 
         <RevealText
           as="h2"
-          className="mt-10 max-w-[16ch] text-[clamp(2.5rem,7vw,6.5rem)] text-bone"
+          className="mt-10 max-w-[16ch] text-[clamp(2.5rem,7vw,6.5rem)] text-chalk"
         >
           {TABLE.statement}
         </RevealText>
@@ -34,7 +34,7 @@ export function Table(): React.JSX.Element {
           {TABLE.body.map((paragraph, index) => (
             <RevealText
               key={paragraph.slice(0, 24)}
-              className="max-w-[58ch] text-pretty text-base leading-[1.75] text-bone/90 lg:col-span-5"
+              className="max-w-[58ch] text-pretty text-base leading-[1.75] text-chalk/90 lg:col-span-5"
               delay={index * 0.05}
             >
               {paragraph}
@@ -42,11 +42,11 @@ export function Table(): React.JSX.Element {
           ))}
 
           <Reveal className="lg:col-span-2 lg:col-start-11">
-            <dl className="flex flex-col gap-6 border-t border-bone/25 pt-6">
+            <dl className="flex flex-col gap-6 border-t border-chalk/25 pt-6">
               {TABLE.facts.map((fact) => (
                 <div key={fact.label}>
-                  <dt className="label-mono text-bone/60">{fact.label}</dt>
-                  <dd className="mt-2 font-mono text-lg text-bone" data-numeric>
+                  <dt className="label-mono text-chalk/60">{fact.label}</dt>
+                  <dd className="mt-2 font-mono text-lg text-chalk" data-numeric>
                     {fact.value}
                   </dd>
                 </div>

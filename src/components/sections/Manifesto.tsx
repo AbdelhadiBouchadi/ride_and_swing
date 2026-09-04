@@ -8,16 +8,16 @@ import { MANIFESTO, PLACE_PHOTO } from '@/lib/content';
 /** Server Component — animation lives entirely in the leaf wrappers. */
 export function Manifesto(): React.JSX.Element {
   return (
-    <section id="school" className="grain relative bg-sand py-section">
+    <section id="idea" className="grain relative bg-horizon py-section">
       <div className="gutter">
         <div className="flex items-center gap-4">
-          <span className="label-mono text-ochre-ink">{MANIFESTO.eyebrow}</span>
+          <span className="label-mono text-fairway-ink">{MANIFESTO.eyebrow}</span>
           <span aria-hidden="true" className="h-px w-24 bg-haze/40" />
         </div>
 
         <RevealText
           as="h2"
-          className="mt-10 max-w-[18ch] text-[clamp(2.5rem,7.5vw,7rem)] text-basalt"
+          className="mt-10 max-w-[18ch] text-[clamp(2.5rem,7.5vw,7rem)] text-abyss"
         >
           {MANIFESTO.statement}
         </RevealText>
@@ -46,7 +46,7 @@ export function Manifesto(): React.JSX.Element {
             ))}
 
             <Reveal className="mt-4 border-t border-haze/30 pt-8">
-              <p className="max-w-[48ch] font-display text-2xl italic leading-snug text-clay sm:text-3xl">
+              <p className="max-w-[48ch] font-display text-2xl italic leading-snug text-tide sm:text-3xl">
                 {MANIFESTO.pullQuote}
               </p>
             </Reveal>

@@ -19,14 +19,14 @@ export const buttonVariants = cva(
   {
     variants: {
       variant: {
-        solid: "bg-basalt text-sand hover:bg-clay",
+        solid: "bg-abyss text-horizon hover:bg-tide",
         outline:
-          "border border-haze/50 text-basalt hover:border-basalt hover:bg-basalt hover:text-sand",
-        ghost: "text-basalt hover:text-ochre-ink",
+          "border border-haze/50 text-abyss hover:border-abyss hover:bg-abyss hover:text-horizon",
+        ghost: "text-abyss hover:text-fairway-ink",
         /* For placement on dark sections. */
-        inverse: "bg-sand text-basalt hover:bg-ochre-light",
+        inverse: "bg-horizon text-abyss hover:bg-fairway-light",
         outlineInverse:
-          "border border-sand/35 text-sand hover:border-sand hover:bg-sand hover:text-basalt",
+          "border border-horizon/35 text-horizon hover:border-horizon hover:bg-horizon hover:text-abyss",
       },
       size: {
         sm: "h-10 px-5",

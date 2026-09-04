@@ -1,9 +1,26 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <!-- Basalt ground with the ochre horizon rule the site uses throughout. -->
-  <rect width="32" height="32" fill="#1c2321"/>
-  <rect x="0" y="21" width="32" height="1" fill="#c4703a"/>
-  <!-- A didone "T": thin/thick stress is the whole identity, so the mark keeps
-       the hairline crossbar rather than flattening to a slab. -->
-  <rect x="6" y="8" width="20" height="3.4" fill="#e8dfd3"/>
-  <rect x="14.2" y="8" width="3.6" height="11" fill="#e8dfd3"/>
+  <!-- A reduction of the crest, hand-drawn rather than traced.
+
+       The client's mark is a ring carrying arced "RIDE AND SWING" lettering
+       around a board and two crossed irons, with a deliberate speckled
+       texture inside the ring. All of that is mush below about 64px, and a
+       vector trace would read the speckle as noise, so this keeps only what
+       survives at 16px: the ring, the board, and the two crossing shafts.
+
+       Abyss ground rather than transparency — the source artwork is white,
+       which disappears against a light browser chrome. -->
+  <rect width="32" height="32" fill="#0b1c26"/>
+
+  <!-- The two irons, crossing behind the board. Fairway green is the only
+       colour in the mark, so the golf half is the half that carries it. -->
+  <g stroke="#79b98f" stroke-width="1.7" stroke-linecap="round">
+    <path d="M8.6 8.6 L 19.6 21.6"/>
+    <path d="M23.4 8.6 L 12.4 21.6"/>
+  </g>
+
+  <!-- Ring. -->
+  <circle cx="16" cy="16" r="12.4" fill="none" stroke="#edeae3" stroke-width="1.3"/>
+
+  <!-- Board, drawn over the shafts so the silhouette stays unbroken. -->
+  <path d="M16 4.7 C 18.5 9.6 18.9 18 16 27.3 C 13.1 18 13.5 9.6 16 4.7 Z" fill="#edeae3"/>
 </svg>

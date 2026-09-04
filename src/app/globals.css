@@ -2,74 +2,78 @@
 @import "tw-animate-css";
 
 /* ==========================================================================
-   ARGAN & ATLANTIC — Dar Tamri
+   RIDE AND SWING — Surf & Golf, Taghazout
    --------------------------------------------------------------------------
-   Palette built from the materials of the Souss coast, not from a generic
-   "luxury hotel" navy/gold. Every text pair below is contrast-computed
-   against WCAG 2.1 and annotated with its measured ratio.
+   Two sports, one coast, and a palette that says so. The dark ground is the
+   Atlantic at depth; the accent is the fairway. Each half of the brand owns
+   one structural role instead of competing for the same one, which is why
+   there is no third "brand colour" here.
+
+   Every text pair below is contrast-computed against WCAG 2.1 and annotated
+   with its measured ratio.
    ========================================================================== */
 
 :root {
   /* --- Raw brand ramp ---------------------------------------------------- */
-  --sand: #e8dfd3; /* lime-washed plaster — page ground */
-  --sand-deep: #ddd2c3; /* the same wall in shadow — muted surfaces */
-  --bone: #f5f0e8; /* raised cards, lifted above the ground */
-  --basalt: #1c2321; /* wet volcanic rock — ink + dark sections */
-  --basalt-soft: #2a322f; /* dark surface, one step off the floor */
-  --clay: #8a5a44; /* tadelakt, unpolished */
-  --ochre: #c4703a; /* argan husk — graphic fills, rules, large marks */
-  --ochre-ink: #9a4f22; /* darkened for type: 4.53:1 on --sand ✓ AA */
-  --ochre-light: #d98a52; /* lightened for type on dark: 5.91:1 on --basalt ✓ */
-  --haze: #6b7f7a; /* Atlantic haze — borders, 3:1 large text only */
-  --haze-ink: #4a5a55; /* darkened for type: 5.52:1 on --sand ✓ AA */
-  --haze-dim: #8b9d97; /* secondary type on dark: 6.4:1 on --basalt ✓ */
+  --horizon: #edeae3; /* the silver overcast sky off Taghazout — page ground */
+  --horizon-deep: #ded9ce; /* the same sky with weather in it — muted surfaces */
+  --chalk: #f8f6f1; /* raised cards, lifted above the ground */
+  --abyss: #0b1c26; /* the Atlantic at depth — ink + dark sections */
+  --abyss-soft: #142e3b; /* dark surface, one step off the floor */
+  --tide: #1d5a72; /* mid-ocean blue — mid-tone sections, graphic rules */
+  --fairway: #2e6b45; /* cut grass — graphic fills, large marks */
+  --fairway-ink: #1f5533; /* darkened for type: 7.27:1 on --horizon ✓ AAA */
+  --fairway-light: #79b98f; /* lightened for type on dark: 7.57:1 on --abyss ✓ */
+  --haze: #75878f; /* Atlantic haze — borders, 3:1 large text only */
+  --haze-ink: #4b5c64; /* darkened for type: 5.80:1 on --horizon ✓ AA */
+  --haze-dim: #93a6ae; /* secondary type on dark: 6.87:1 on --abyss ✓ */
 
   /* --- Semantic tokens (shadcn/ui + 21st.dev contract) -------------------
      Registry components import these names. Mapping them onto the brand ramp
-     means any dropped-in component inherits Argan & Atlantic for free. */
-  --background: var(--sand);
-  --foreground: var(--basalt);
-  --card: var(--bone);
-  --card-foreground: var(--basalt);
-  --popover: var(--bone);
-  --popover-foreground: var(--basalt);
-  --primary: var(--basalt);
-  --primary-foreground: var(--sand);
-  --secondary: var(--sand-deep);
-  --secondary-foreground: var(--basalt);
-  --muted: var(--sand-deep);
+     means any dropped-in component inherits Ride and Swing for free. */
+  --background: var(--horizon);
+  --foreground: var(--abyss);
+  --card: var(--chalk);
+  --card-foreground: var(--abyss);
+  --popover: var(--chalk);
+  --popover-foreground: var(--abyss);
+  --primary: var(--abyss);
+  --primary-foreground: var(--horizon);
+  --secondary: var(--horizon-deep);
+  --secondary-foreground: var(--abyss);
+  --muted: var(--horizon-deep);
   --muted-foreground: var(--haze-ink);
-  --accent: var(--ochre);
-  --accent-foreground: var(--bone);
-  --destructive: #a03328;
-  --destructive-foreground: #f5f0e8;
+  --accent: var(--fairway);
+  --accent-foreground: var(--chalk);
+  --destructive: #9a2f2a;
+  --destructive-foreground: #f8f6f1;
   --border: color-mix(in oklab, var(--haze) 34%, transparent);
   --input: color-mix(in oklab, var(--haze) 44%, transparent);
-  --ring: var(--ochre-ink);
-  --radius: 0.125rem; /* near-square. Rounded corners read soft, not luxe. */
+  --ring: var(--fairway-ink);
+  --radius: 0.125rem; /* near-square. A crest-led brand wants corners, not pills. */
 }
 
-/* Dark theme = the house after sunset. Not an inversion — a re-tone.
-   Desaturated warm accents on basalt, per color-dark-mode guidance. */
+/* Dark theme = the same coast before sunrise. Not an inversion — a re-tone.
+   Lifted, desaturated accents on abyss, per color-dark-mode guidance. */
 .dark,
 :root[data-theme="dark"] {
-  --background: var(--basalt);
-  --foreground: var(--sand);
-  --card: var(--basalt-soft);
-  --card-foreground: var(--sand);
-  --popover: var(--basalt-soft);
-  --popover-foreground: var(--sand);
-  --primary: var(--sand);
-  --primary-foreground: var(--basalt);
-  --secondary: var(--basalt-soft);
-  --secondary-foreground: var(--sand);
-  --muted: var(--basalt-soft);
+  --background: var(--abyss);
+  --foreground: var(--horizon);
+  --card: var(--abyss-soft);
+  --card-foreground: var(--horizon);
+  --popover: var(--abyss-soft);
+  --popover-foreground: var(--horizon);
+  --primary: var(--horizon);
+  --primary-foreground: var(--abyss);
+  --secondary: var(--abyss-soft);
+  --secondary-foreground: var(--horizon);
+  --muted: var(--abyss-soft);
   --muted-foreground: var(--haze-dim);
-  --accent: var(--ochre-light);
-  --accent-foreground: var(--basalt);
+  --accent: var(--fairway-light);
+  --accent-foreground: var(--abyss);
   --border: color-mix(in oklab, var(--haze) 30%, transparent);
   --input: color-mix(in oklab, var(--haze) 38%, transparent);
-  --ring: var(--ochre-light);
+  --ring: var(--fairway-light);
 }
 
 @theme inline {
@@ -95,20 +99,20 @@
   --color-ring: var(--ring);
 
   /* Brand — for expressive, non-component use */
-  --color-sand: var(--sand);
-  --color-sand-deep: var(--sand-deep);
-  --color-bone: var(--bone);
-  --color-basalt: var(--basalt);
-  --color-basalt-soft: var(--basalt-soft);
-  --color-clay: var(--clay);
-  --color-ochre: var(--ochre);
-  --color-ochre-ink: var(--ochre-ink);
-  --color-ochre-light: var(--ochre-light);
+  --color-horizon: var(--horizon);
+  --color-horizon-deep: var(--horizon-deep);
+  --color-chalk: var(--chalk);
+  --color-abyss: var(--abyss);
+  --color-abyss-soft: var(--abyss-soft);
+  --color-tide: var(--tide);
+  --color-fairway: var(--fairway);
+  --color-fairway-ink: var(--fairway-ink);
+  --color-fairway-light: var(--fairway-light);
   --color-haze: var(--haze);
   --color-haze-ink: var(--haze-ink);
   --color-haze-dim: var(--haze-dim);
 
-  --font-display: var(--ff-display), "Didot", "Times New Roman", serif;
+  --font-display: var(--ff-display), Georgia, "Times New Roman", serif;
   --font-body: var(--ff-body), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--ff-mono), ui-monospace, monospace;
 
@@ -146,14 +150,17 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Didone at display sizes wants negative tracking and tight leading. */
+  /* Newsreader is a transitional serif, not a didone: larger x-height and
+     sturdier stems than the Bodoni this replaced. It wants a touch more
+     leading and noticeably less negative tracking — Bodoni's -0.03em closed
+     up Newsreader's wider counters and made display sizes read cramped. */
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
     font-weight: 400;
-    line-height: 0.92;
-    letter-spacing: -0.03em;
+    line-height: 0.95;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
@@ -169,8 +176,8 @@
   }
 
   ::selection {
-    background-color: var(--color-ochre);
-    color: var(--color-bone);
+    background-color: var(--color-fairway);
+    color: var(--color-chalk);
   }
 
   /* Data figures must not reflow as values change. */
@@ -206,12 +213,13 @@
   /* ------------------------------------------------------------------
      Unified film grade.
 
-     Photography arrives from many sources with many different white
-     balances. Left alone it reads as a mood board. This pulls every frame
-     toward Argan & Atlantic: desaturate slightly, lift contrast, then lay a
-     warm-highlight / cool-shadow gradient over the top in soft-light, and
-     finish with fine grain. Applied once here rather than per-image, so the
-     whole site can be re-graded from a single place.
+     This brand's photography arrives in two irreconcilable lights: the golf
+     frames are warm, low, hard-sun; the surf frames are flat grey overcast.
+     Side by side they read as two businesses. The grade closes that gap by
+     pushing both toward the same place — desaturate slightly, lift contrast,
+     then lay warm highlights over cool-blue shadows in soft-light, and finish
+     with fine grain. Applied once here rather than per-image, so the whole
+     site can be re-graded from a single place.
      ------------------------------------------------------------------ */
   /* Deliberately does NOT set `position`. It is a single-class utility, so a
      `position: relative` here would win on source order over Tailwind's
@@ -222,10 +230,12 @@
   }
 
   .photo-film img {
-    filter: saturate(0.82) contrast(1.05);
+    filter: saturate(0.84) contrast(1.06);
   }
 
-  /* Tone: warm into the highlights, cool-green into the shadows. */
+  /* Tone: the warm linen of the ground into the highlights, deep ocean into
+     the shadows. Blue shadows are what let a hard-sun fairway and a grey
+     Atlantic morning sit in the same layout. */
   .photo-film::before {
     content: "";
     position: absolute;
@@ -235,10 +245,10 @@
     mix-blend-mode: soft-light;
     background: linear-gradient(
       168deg,
-      color-mix(in srgb, var(--ochre) 62%, transparent) 0%,
-      transparent 44%,
-      color-mix(in srgb, var(--haze) 34%, transparent) 70%,
-      color-mix(in srgb, var(--basalt) 58%, transparent) 100%
+      color-mix(in srgb, var(--horizon) 44%, transparent) 0%,
+      transparent 42%,
+      color-mix(in srgb, var(--tide) 34%, transparent) 68%,
+      color-mix(in srgb, var(--abyss) 62%, transparent) 100%
     );
   }
 
@@ -254,7 +264,7 @@
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='0.6'/%3E%3C/svg%3E");
   }
 
-  /* Fine film grain. Keeps large flat plaster fields from looking like CSS. */
+  /* Fine film grain. Keeps large flat colour fields from looking like CSS. */
   .grain::after {
     content: "";
     position: absolute;

@@ -40,7 +40,7 @@ export function SectionHeading({
         <span
           className={cn(
             "label-mono",
-            inverse ? "text-ochre-light" : "text-ochre-ink",
+            inverse ? "text-fairway-light" : "text-fairway-ink",
           )}
         >
           {eyebrow}
@@ -49,7 +49,7 @@ export function SectionHeading({
           aria-hidden="true"
           className={cn(
             "h-px flex-1 max-w-32",
-            inverse ? "bg-sand/25" : "bg-haze/40",
+            inverse ? "bg-horizon/25" : "bg-haze/40",
           )}
         />
       </Reveal>
@@ -58,7 +58,7 @@ export function SectionHeading({
         as={as}
         className={cn(
           "text-balance text-[clamp(2.25rem,6vw,5.5rem)]",
-          inverse ? "text-sand" : "text-basalt",
+          inverse ? "text-horizon" : "text-abyss",
           titleClassName,
         )}
       >

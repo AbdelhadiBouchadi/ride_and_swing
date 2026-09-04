@@ -13,9 +13,9 @@ import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsap';
  * It sits on the right edge, vertically, picking up where the hero's rotated
  * "Scroll" cue leaves off.
  *
- * **Ground-aware.** The page alternates sand, basalt and clay grounds, and no
- * single ink is legible on all three — ochre-ink reads 4.5:1 on sand but 2.7:1
- * on basalt. Sections that render dark are tagged `data-ground="dark"`, and a
+ * **Ground-aware.** The page alternates horizon, abyss and tide grounds, and no
+ * single ink is legible on all three — fairway-ink reads 7.3:1 on horizon but 2.4:1
+ * on abyss. Sections that render dark are tagged `data-ground="dark"`, and a
  * ScrollTrigger per section flips the indicator's palette as each one passes
  * the middle of the viewport.
  *
@@ -120,15 +120,15 @@ export function ScrollProgress(): React.JSX.Element {
       aria-hidden="true"
       className="group pointer-events-none fixed right-6 top-1/2 z-40 hidden -translate-y-1/2 flex-col items-center gap-4 lg:flex"
     >
-      <span className="relative block h-28 w-px bg-basalt/15 transition-colors duration-500 group-data-[ground=dark]:bg-sand/20">
+      <span className="relative block h-28 w-px bg-abyss/15 transition-colors duration-500 group-data-[ground=dark]:bg-horizon/20">
         <span
           ref={fillRef}
-          className="absolute inset-0 block w-px origin-top bg-ochre-ink transition-colors duration-500 group-data-[ground=dark]:bg-ochre-light"
+          className="absolute inset-0 block w-px origin-top bg-fairway-ink transition-colors duration-500 group-data-[ground=dark]:bg-fairway-light"
         />
       </span>
       <span
         ref={valueRef}
-        className="label-mono text-basalt/45 transition-colors duration-500 group-data-[ground=dark]:text-sand/55 [writing-mode:vertical-rl]"
+        className="label-mono text-abyss/45 transition-colors duration-500 group-data-[ground=dark]:text-horizon/55 [writing-mode:vertical-rl]"
         data-numeric
       >
         00

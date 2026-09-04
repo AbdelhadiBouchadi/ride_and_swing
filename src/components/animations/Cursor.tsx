@@ -17,14 +17,14 @@ const MODE_LABEL: Record<CursorMode, string> = {
  * A cursor that reports what the pointer can do.
  *
  * Three states only, because each one has to mean something:
- *   default      — a small ochre disc
+ *   default      — a small fairway-green disc
  *   interactive  — expands to a ring over anything clickable
  *   drag         — expands to a filled disc labelled "Drag" over the pinned
  *                  breaks track, which is the one region whose affordance is
  *                  genuinely not obvious
  *
  * Ochre is chosen because it is the one brand colour legible on both grounds:
- * 2.8:1 on sand and 4.4:1 on basalt. As a graphic mark rather than text that
+ * 3.0:1 on horizon and 4.6:1 on abyss. As a graphic mark rather than text that
  * clears the 3:1 non-text bar on the dark half and stays clearly visible on
  * the light half.
  *
@@ -79,7 +79,7 @@ export function Cursor(): React.JSX.Element | null {
             height: size,
             borderWidth: next === 'default' ? 5 : 1,
             backgroundColor:
-              next === 'drag' ? 'var(--sand)' : 'rgba(196,112,58,0)',
+              next === 'drag' ? 'var(--horizon)' : 'rgba(46,107,69,0)',
             duration: 0.4,
             ease: 'expo.out',
           });
@@ -138,11 +138,11 @@ export function Cursor(): React.JSX.Element | null {
     >
       <div
         ref={ringRef}
-        className="flex size-2.5 items-center justify-center rounded-full border-[5px] border-ochre"
+        className="flex size-2.5 items-center justify-center rounded-full border-[5px] border-fairway"
       >
         <span
           ref={labelRef}
-          className="label-mono invisible whitespace-nowrap text-basalt"
+          className="label-mono invisible whitespace-nowrap text-abyss"
         />
       </div>
     </div>

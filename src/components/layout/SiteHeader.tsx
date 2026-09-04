@@ -104,7 +104,7 @@ export function SiteHeader(): React.JSX.Element {
         data-site-header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-          isScrolled && "border-b border-sand/10 bg-basalt/90 backdrop-blur-md",
+          isScrolled && "border-b border-horizon/10 bg-abyss/90 backdrop-blur-md",
         )}
       >
         {/* Scrim over the hero only. Guarantees the nav reads against any
@@ -112,7 +112,7 @@ export function SiteHeader(): React.JSX.Element {
         <div
           aria-hidden="true"
           className={cn(
-            "pointer-events-none absolute inset-0 bg-linear-to-b from-basalt/80 via-basalt/40 to-transparent transition-opacity duration-300",
+            "pointer-events-none absolute inset-0 bg-linear-to-b from-abyss/80 via-abyss/40 to-transparent transition-opacity duration-300",
             isScrolled && "opacity-0",
           )}
         />
@@ -124,7 +124,7 @@ export function SiteHeader(): React.JSX.Element {
               event.preventDefault();
               handleNavigate("body");
             }}
-            className="font-display text-lg tracking-[0.28em] text-sand"
+            className="font-display text-lg tracking-[0.28em] text-horizon"
             aria-label={`${SITE.name} — back to top`}
           >
             {SITE.wordmark}
@@ -140,7 +140,7 @@ export function SiteHeader(): React.JSX.Element {
                       event.preventDefault();
                       handleNavigate(item.href);
                     }}
-                    className="label-mono text-sand/80 transition-colors duration-200 hover:text-ochre-light"
+                    className="label-mono text-horizon/80 transition-colors duration-200 hover:text-fairway-light"
                   >
                     {item.label}
                   </a>
@@ -156,7 +156,7 @@ export function SiteHeader(): React.JSX.Element {
                 event.preventDefault();
                 handleNavigate("#enquire");
               }}
-              className="label-mono inline-block border border-sand/45 px-5 py-3 text-sand transition-colors duration-200 hover:border-sand hover:bg-sand hover:text-basalt"
+              className="label-mono inline-block border border-horizon/45 px-5 py-3 text-horizon transition-colors duration-200 hover:border-horizon hover:bg-horizon hover:text-abyss"
             >
               Book
             </a>
@@ -165,7 +165,7 @@ export function SiteHeader(): React.JSX.Element {
           <button
             type="button"
             onClick={() => setIsOpen(true)}
-            className="-mr-2 flex size-11 items-center justify-center text-sand lg:hidden"
+            className="-mr-2 flex size-11 items-center justify-center text-horizon lg:hidden"
             aria-label="Open menu"
             aria-expanded={isOpen}
             aria-controls="mobile-menu"
@@ -175,23 +175,23 @@ export function SiteHeader(): React.JSX.Element {
         </div>
       </header>
 
-      {/* Mobile menu. Full-bleed basalt so contrast is unambiguous. */}
+      {/* Mobile menu. Full-bleed abyss so contrast is unambiguous. */}
       <div
         id="mobile-menu"
         hidden={!isOpen}
         className={cn(
-          "fixed inset-0 z-[60] bg-basalt lg:hidden",
+          "fixed inset-0 z-[60] bg-abyss lg:hidden",
           isOpen && "animate-in fade-in duration-300",
         )}
       >
         <div className="gutter flex h-20 items-center justify-between sm:h-24">
-          <span className="font-display text-lg tracking-[0.28em] text-sand">
+          <span className="font-display text-lg tracking-[0.28em] text-horizon">
             {SITE.wordmark}
           </span>
           <button
             type="button"
             onClick={() => setIsOpen(false)}
-            className="-mr-2 flex size-11 items-center justify-center text-sand"
+            className="-mr-2 flex size-11 items-center justify-center text-horizon"
             aria-label="Close menu"
           >
             <X className="size-5" strokeWidth={1.5} aria-hidden="true" />
@@ -208,7 +208,7 @@ export function SiteHeader(): React.JSX.Element {
                     event.preventDefault();
                     handleNavigate(item.href);
                   }}
-                  className="block py-3 font-display text-[clamp(2rem,9vw,3.25rem)] leading-none text-sand"
+                  className="block py-3 font-display text-[clamp(2rem,9vw,3.25rem)] leading-none text-horizon"
                 >
                   {item.label}
                 </a>
@@ -222,7 +222,7 @@ export function SiteHeader(): React.JSX.Element {
               event.preventDefault();
               handleNavigate("#enquire");
             }}
-            className="label-mono mt-12 inline-block border border-sand/40 px-7 py-4 text-sand"
+            className="label-mono mt-12 inline-block border border-horizon/40 px-7 py-4 text-horizon"
           >
             Book
           </a>

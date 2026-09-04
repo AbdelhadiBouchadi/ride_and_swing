@@ -5,16 +5,18 @@ import { Manifesto } from '@/components/sections/Manifesto';
 import { Packages } from '@/components/sections/Packages';
 import { Points } from '@/components/sections/Points';
 import { Table } from '@/components/sections/Table';
-import { Testimonials } from '@/components/sections/Testimonials';
 
 /**
  * Fully static Server Component. Every section renders on the server; the
  * only client JavaScript on the page is the isolated motion layer.
  *
  * Section order is an argument, not a template: the ocean's conditions first
- * (the thesis), then the school, what it sells, the waves it sells access to,
- * the shape of a day, the table — and only then other people's word for it,
- * immediately before the ask, where proof does the most work.
+ * (the thesis), then the idea, what it sells, the course and points it sells
+ * access to, the shape of a day, and the case for doing both — which lands
+ * immediately before the ask, where the argument does the most work.
+ *
+ * There is no reviews section. The business has none yet, and a testimonial
+ * block is not something to fill with placeholder voices.
  */
 export default function HomePage(): React.JSX.Element {
   return (
@@ -25,7 +27,6 @@ export default function HomePage(): React.JSX.Element {
       <Points />
       <Day />
       <Table />
-      <Testimonials />
       <Enquire />
     </>
   );

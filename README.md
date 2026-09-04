@@ -1,10 +1,10 @@
-# Taghazout Bay — hospitality site template
+# Taghazout Bay — sport & hospitality site template
 
-A production marketing site for small hospitality on the Agadir coast — surf
-camps, guest houses, riads and lodges from Anza north to Imsouane.
+A production marketing site for small operators on the Agadir coast — surf
+camps, golf, guest houses and lodges from Anza north to Imsouane.
 
-It is currently skinned for a real client — **Alaïa Surf School**, Tawenza
-Square, Taghazout — and is built to be re-skinned per prospect: everything that
+It is currently skinned for a real client — **Ride and Swing**, surf and golf
+at Taghazout — and is built to be re-skinned per prospect: everything that
 identifies a business lives in one config object. See
 [Re-skinning for a client](#re-skinning-for-a-client).
 
@@ -35,14 +35,13 @@ property-specific string, so a new prospect is a config edit and nothing else.
 | `identity` | Name, wordmark, contact, URL, metadata, JSON-LD, social card |
 | `coast` | Latitude/longitude and shore aspect — **the live almanac retargets itself** |
 | `seo` | Keywords and the `amenityFeature` list in structured data |
-| `packages`, `breaks`, `day` | What the business actually sells, surfs and does |
-| `testimonials` | Published reviews, quoted verbatim in their own language |
-| `manifesto`, `packagesCopy`, `pointsCopy`, `dayCopy`, `table`, `testimonialsCopy`, `enquire` | Every line of section copy |
+| `packageGroups`, `spots`, `day` | What the business sells, where it takes you, and how a day runs |
+| `manifesto`, `packagesCopy`, `pointsCopy`, `dayCopy`, `table`, `enquire` | Every line of section copy |
 | `almanacFallback` | Static readings shown if a forecast source is unreachable |
 
 `src/lib/content.ts` re-exports the config under the names sections import
-(`SITE`, `PACKAGES`, `BREAKS`…), so components never reach into the config's
-shape. The types in `src/lib/types.ts` make an incomplete swap **fail the
+(`SITE`, `PACKAGE_GROUPS`, `SPOTS`…), so components never reach into the
+config's shape. The types in `src/lib/types.ts` make an incomplete swap **fail the
 build** rather than ship a half-renamed business.
 
 Photography binds by slot id in `src/lib/photos.ts`. Slots are named for what
@@ -106,28 +105,31 @@ renders visible**.
 
 ## Design system
 
-**Argan & Atlantic** — built from the materials of the Souss coast rather than
-a generic hospitality navy/gold.
+**Two sports, one coast.** The dark ground is the Atlantic at depth; the
+accent is the fairway. Each half of the brand owns one structural role, which
+is why there is no third brand colour.
 
 | Token | Hex | Use |
 |---|---|---|
-| `--sand` | `#E8DFD3` | Page ground — lime-washed plaster |
-| `--sand-deep` | `#DDD2C3` | The same wall in shadow |
-| `--bone` | `#F5F0E8` | Raised surfaces |
-| `--basalt` | `#1C2321` | Ink and dark sections — wet volcanic rock |
-| `--clay` | `#8A5A44` | Unpolished tadelakt |
-| `--ochre` | `#C4703A` | Argan husk — graphic fills and rules |
-| `--ochre-ink` | `#9A4F22` | Accent **text** — 4.53:1 on sand |
-| `--haze-ink` | `#4A5A55` | Secondary text — 5.52:1 on sand |
+| `--horizon` | `#EDEAE3` | Page ground — the silver overcast sky off Taghazout |
+| `--horizon-deep` | `#DED9CE` | The same sky with weather in it |
+| `--chalk` | `#F8F6F1` | Raised surfaces |
+| `--abyss` | `#0B1C26` | Ink and dark sections — the Atlantic at depth |
+| `--tide` | `#1D5A72` | Mid-tone sections and graphic rules |
+| `--fairway` | `#2E6B45` | Cut grass — graphic fills, never type |
+| `--fairway-ink` | `#1F5533` | Accent **text** — 7.27:1 on horizon |
+| `--haze-ink` | `#4B5C64` | Secondary text — 5.80:1 on horizon |
 
-Contrast ratios are computed, not eyeballed. Note the pairs: `--ochre` is
-2.78:1 on sand and is therefore **only** used for graphics, never type — that
-is what `--ochre-ink` exists for. The same split applies on dark grounds
-(`--ochre-light`, 5.91:1 on basalt).
+Contrast ratios are computed, not eyeballed. Note the pairs: `--fairway` is
+5.29:1 on horizon and is reserved for graphics and large marks; `--fairway-ink`
+is what carries accent type. The same split applies on dark grounds
+(`--fairway-light`, 7.57:1 on abyss).
 
-Type: **Bodoni Moda** (display) / **Jost** (body) / **JetBrains Mono** —
-the mono is reserved for instrument data: tide times, swell readings, break
+Type: **Newsreader** (display) / **Manrope** (body) / **JetBrains Mono** —
+the mono is reserved for instrument data: tide times, swell readings, spot
 specs, prices. All numeric runs use tabular figures so values cannot reflow.
+Newsreader is a transitional serif rather than a didone on purpose: the brand
+mark is a heavy collegiate crest, and hairline display faces fight it.
 
 ### shadcn/ui and 21st.dev
 
@@ -241,12 +243,17 @@ loading state already in place.
 - **`lenis` instead of `@studio-freight/lenis`.** The Studio Freight package is
   deprecated and frozen at 1.0.42; the library moved to the bare `lenis`
   package (1.3.26). Identical API.
-- **Content is now real, and must be checked before launch.** The name, phone,
-  packages, prices, daily schedule, rating and the three quoted reviews all come
-  from `intake/alaia/data.json`. Two fields could not be sourced from it and are
-  marked `TO CONFIRM` in `property.config.ts`: the email address (read off the
-  school's own printed flyers) and the canonical URL. Confirm both with the
-  client before any launch.
+- **Contact details are placeholders and must be replaced before launch.**
+  Package names and prices are the client's own rate card, reproduced exactly
+  — including the two currencies, which is how they quote it. But the street
+  address, email, phone and canonical URL were never supplied and are marked
+  `TO CONFIRM` in `property.config.ts`. **The phone number is deliberately
+  `+212 000 000 000` so it cannot be mistaken for real.** So is the drive time
+  to the golf course, and the green-fee inclusions line in the packages
+  footnote. Confirm all of them with the client before any launch.
+- **There is no reviews section.** The business has no reviews yet, so the
+  section and the JSON-LD `aggregateRating` were removed rather than filled.
+  An empty or invented rating is penalised harder than none at all.
 - **The almanac is the exception — it is genuinely live.** Swell, wind, tides,
   sunrise and sea temperature are real Open-Meteo readings for the configured
   coordinates, refreshed hourly. The static `almanacFallback` values are the

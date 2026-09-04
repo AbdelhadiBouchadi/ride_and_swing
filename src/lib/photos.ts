@@ -1,11 +1,10 @@
 import type { StaticImageData } from 'next/image';
 
-import boardsDawn from '@/assets/photos/boards-dawn.webp';
-import commonRoom from '@/assets/photos/common-room.webp';
-import lessonLineup from '@/assets/photos/lesson-lineup.webp';
+import boardLine from '@/assets/photos/board-line.webp';
 import place from '@/assets/photos/place.webp';
-import shorebreakWalk from '@/assets/photos/shorebreak-walk.webp';
-import warmupSand from '@/assets/photos/warmup-sand.webp';
+import puttingGreen from '@/assets/photos/putting-green.webp';
+import teeShot from '@/assets/photos/tee-shot.webp';
+import theGreen from '@/assets/photos/the-green.webp';
 
 /**
  * Photographs keyed by `PhotoBrief.id`.
@@ -15,11 +14,12 @@ import warmupSand from '@/assets/photos/warmup-sand.webp';
  * `blurDataURL`. That gives a true blur-up on load and makes layout shift
  * impossible — neither is available when you pass a `/public` string.
  *
- * Slots are named for **what the frame contains** — `lesson-lineup`, not
- * `group-class`. Package names change with every client this template is
- * pitched to; a photograph of a class on the sand is still a photograph of a
- * class on the sand. Keying on content is what lets `property.config.ts` be
- * rewritten end to end without orphaning a single image.
+ * Slots are named for **what the frame contains** — `tee-shot`, not
+ * `surf-and-nine`. Package names change with every client this template is
+ * pitched to, and they changed twice during this rebrand alone; a photograph
+ * of a follow-through against open sky is still that photograph. Keying on
+ * content is what lets `property.config.ts` be rewritten end to end without
+ * orphaning a single image.
  *
  * The hero is deliberately absent. It is art-directed across breakpoints
  * (a 21/9 frame on desktop, a separately composed 3/4 frame on phones), which
@@ -30,11 +30,10 @@ import warmupSand from '@/assets/photos/warmup-sand.webp';
  */
 export const PHOTOS: Readonly<Record<string, StaticImageData>> = {
   place,
-  'common-room': commonRoom,
-  'lesson-lineup': lessonLineup,
-  'boards-dawn': boardsDawn,
-  'shorebreak-walk': shorebreakWalk,
-  'warmup-sand': warmupSand,
+  'the-green': theGreen,
+  'putting-green': puttingGreen,
+  'board-line': boardLine,
+  'tee-shot': teeShot,
 };
 
 /**
@@ -43,15 +42,13 @@ export const PHOTOS: Readonly<Record<string, StaticImageData>> = {
  */
 export const PHOTO_ALT: Readonly<Record<string, string>> = {
   place:
-    'A surf class sitting on the sand with their arms raised, the low white buildings of the town stacked along the shore behind them.',
-  'common-room':
-    "The school's common room: low pale sofas around a wooden table, a rack of surfboards along the right-hand wall, and glass the full width of the room opening onto the garden.",
-  'lesson-lineup':
-    'Soft-top surfboards laid out in a row on wet sand, a group of students in yellow rash vests sitting beside them before the session.',
-  'boards-dawn':
-    'Two surfboards resting on the road outside the school at first light, rash vests hung on posts beside them and the sea a flat band beyond.',
-  'shorebreak-walk':
-    'An instructor and two children wading into the shorebreak carrying blue soft-top boards, a headland in the haze behind them.',
-  'warmup-sand':
-    'A surf instructor on the beach mid warm-up, arms crossed in front of her and eyes closed, the rest of the group out of focus behind.',
+    'A wide beach under heavy cloud, a surf class spread along the sand practising pop-ups on their boards, with scrub-covered hills and a village rising behind them.',
+  'the-green':
+    'A golfer putting on a cut green with the flag still in the hole, an arid, scrub-covered hillside rising behind the course.',
+  'putting-green':
+    'A golfer standing over a putt on a green, the pin flag hanging beside him against a pale, cloudless sky.',
+  'board-line':
+    'Soft-top surfboards laid out in a long receding line on wet sand, students in wetsuits standing on them during a beach drill.',
+  'tee-shot':
+    'A golfer at the top of his follow-through against an open sky, a tall cactus beside him and dry scrub and palms across the ground behind.',
 };

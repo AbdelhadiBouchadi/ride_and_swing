@@ -38,29 +38,29 @@ export async function Hero(): Promise<React.JSX.Element> {
             the type would have greyed out the whole frame. */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-linear-to-t from-basalt/92 via-basalt/45 to-basalt/40"
+          className="absolute inset-0 bg-linear-to-t from-abyss/92 via-abyss/45 to-abyss/40"
         />
         <div
           aria-hidden="true"
-          className="absolute inset-0 bg-[linear-gradient(96deg,rgba(28,35,33,0.86)_0%,rgba(28,35,33,0.62)_30%,rgba(28,35,33,0.18)_58%,rgba(28,35,33,0)_78%)]"
+          className="absolute inset-0 bg-[linear-gradient(96deg,rgba(11,28,38,0.86)_0%,rgba(11,28,38,0.62)_30%,rgba(11,28,38,0.18)_58%,rgba(11,28,38,0)_78%)]"
         />
 
         <HeroChoreography className="relative z-10 flex min-h-dvh flex-col justify-end">
           <div className="gutter pb-14 sm:pb-20">
-            <p data-hero-eyebrow className="label-mono mb-8 w-fit text-sand/75">
+            <p data-hero-eyebrow className="label-mono mb-8 w-fit text-horizon/75">
               {SITE.tagline}
             </p>
 
             <h1
               data-hero-mark
-              className="w-fit font-display text-[clamp(4.5rem,20vw,17rem)] leading-[0.78] tracking-[-0.045em] text-sand"
+              className="w-fit font-display text-[clamp(2.75rem,11vw,9.5rem)] leading-[0.85] tracking-[-0.025em] text-horizon"
             >
               {SITE.wordmark}
             </h1>
 
             <p
               data-hero-sub
-              className="mt-8 max-w-lg text-pretty text-base leading-relaxed text-sand/85 sm:text-lg"
+              className="mt-8 max-w-lg text-pretty text-base leading-relaxed text-horizon/85 sm:text-lg"
             >
               {HERO.subtitle}
             </p>
@@ -76,7 +76,7 @@ export async function Hero(): Promise<React.JSX.Element> {
         <span
           data-hero-cue
           aria-hidden="true"
-          className="absolute bottom-32 right-gutter z-10 hidden origin-bottom-right rotate-90 label-mono text-sand/50 lg:block"
+          className="absolute bottom-32 right-gutter z-10 hidden origin-bottom-right rotate-90 label-mono text-horizon/50 lg:block"
         >
           Scroll
         </span>

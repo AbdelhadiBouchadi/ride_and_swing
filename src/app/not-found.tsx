@@ -16,18 +16,18 @@ export const metadata: Metadata = {
  */
 export default function NotFound(): React.JSX.Element {
   return (
-    <div className="grain relative flex min-h-dvh flex-col justify-between bg-basalt text-sand">
+    <div className="grain relative flex min-h-dvh flex-col justify-between bg-abyss text-horizon">
       <div className="gutter flex flex-1 flex-col justify-center py-section">
         <div className="flex items-center gap-4">
-          <span className="label-mono text-ochre-light">Off the map</span>
-          <span aria-hidden="true" className="h-px w-24 bg-sand/25" />
+          <span className="label-mono text-fairway-light">Off the map</span>
+          <span aria-hidden="true" className="h-px w-24 bg-horizon/25" />
         </div>
 
         <h1 className="mt-10 max-w-[14ch] font-display text-[clamp(2.75rem,9vw,8rem)] leading-[0.88] tracking-[-0.035em]">
           This page is not one of ours.
         </h1>
 
-        <p className="mt-8 max-w-[52ch] text-pretty text-base leading-[1.75] text-sand/75 sm:text-lg">
+        <p className="mt-8 max-w-[52ch] text-pretty text-base leading-[1.75] text-horizon/75 sm:text-lg">
           Nothing here. The tide takes things occasionally. Head back to the
           house, or write to us and we will point you at whatever you were
           looking for.
@@ -45,13 +45,13 @@ export default function NotFound(): React.JSX.Element {
 
       {/* Echoes the hero's almanac band, so even the error page is in the
           same structural language. */}
-      <div className="border-t border-sand/20 bg-basalt/55">
+      <div className="border-t border-horizon/20 bg-abyss/55">
         <div className="gutter flex flex-wrap gap-x-12 gap-y-3 py-5">
-          <span className="label-mono text-sand/55">Error</span>
-          <span className="font-mono text-sm text-sand" data-numeric>
+          <span className="label-mono text-horizon/55">Error</span>
+          <span className="font-mono text-sm text-horizon" data-numeric>
             404
           </span>
-          <span className="label-mono self-center text-sand/40">
+          <span className="label-mono self-center text-horizon/40">
             {SITE.location}
           </span>
         </div>

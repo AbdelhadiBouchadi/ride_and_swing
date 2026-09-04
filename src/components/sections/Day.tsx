@@ -18,11 +18,11 @@ function MomentRow({ moment }: MomentRowProps): React.JSX.Element {
         <time> and carries no clock value, because the school does not promise
         one — sessions move with the swell.
       */}
-      <span className="label-mono text-ochre-ink sm:col-span-2">
+      <span className="label-mono text-fairway-ink sm:col-span-2">
         {moment.marker}
       </span>
 
-      <h3 className="font-display text-2xl leading-tight text-basalt sm:col-span-3 sm:text-3xl">
+      <h3 className="font-display text-2xl leading-tight text-abyss sm:col-span-3 sm:text-3xl">
         {moment.title}
       </h3>
 
@@ -38,7 +38,7 @@ export function Day(): React.JSX.Element {
   return (
     <section
       id="day"
-      className="grain relative bg-sand py-section"
+      className="grain relative bg-horizon py-section"
     >
       <div className="gutter">
         <div className="grid gap-12 lg:grid-cols-12">
