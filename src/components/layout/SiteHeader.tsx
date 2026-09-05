@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import { Menu, X } from "lucide-react";
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { Menu, X } from 'lucide-react';
 
-import { Magnetic } from "@/components/animations/Magnetic";
-import { useSmoothScroll } from "@/components/animations/SmoothScroll";
-import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
-import { NAV_ITEMS, SITE } from "@/lib/content";
-import { gsap, ScrollTrigger, useGSAP } from "@/lib/gsap";
-import { cn } from "@/lib/utils";
+import { Magnetic } from '@/components/animations/Magnetic';
+import { useSmoothScroll } from '@/components/animations/SmoothScroll';
+import { useIsomorphicLayoutEffect } from '@/hooks/useIsomorphicLayoutEffect';
+import { NAV_ITEMS, SITE } from '@/lib/content';
+import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsap';
+import { cn } from '@/lib/utils';
 
 /**
  * Fixed header that recedes on scroll-down and returns on scroll-up.
@@ -34,25 +34,29 @@ export function SiteHeader(): React.JSX.Element {
   const router = useRouter();
 
   useGSAP(() => {
-    const header = document.querySelector<HTMLElement>("[data-site-header]");
+    const header = document.querySelector<HTMLElement>('[data-site-header]');
     if (!header) return;
 
     const mm = gsap.matchMedia();
 
-    mm.add("(prefers-reduced-motion: no-preference)", () => {
+    mm.add('(prefers-reduced-motion: no-preference)', () => {
       const show = gsap.to(header, {
         yPercent: 0,
         duration: 0.45,
-        ease: "power3.out",
+        ease: 'power3.out',
         paused: true,
       });
 
       const trigger = ScrollTrigger.create({
-        start: "top -120",
-        end: "max",
+        start: 'top -120',
+        end: 'max',
         onUpdate: (self) => {
           if (self.direction === 1 && self.scroll() > 200) {
-            gsap.to(header, { yPercent: -100, duration: 0.4, ease: "power3.in" });
+            gsap.to(header, {
+              yPercent: -100,
+              duration: 0.4,
+              ease: 'power3.in',
+            });
           } else {
             show.restart();
           }
@@ -78,7 +82,7 @@ export function SiteHeader(): React.JSX.Element {
   useIsomorphicLayoutEffect(() => {
     if (!isOpen) return;
     const previous = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
     return () => {
       document.body.style.overflow = previous;
     };
@@ -90,7 +94,7 @@ export function SiteHeader(): React.JSX.Element {
     // The header also renders on routes that have no sections — /404, for
     // one. Scrolling to a selector that isn't in the document would silently
     // do nothing, so fall back to a real navigation home with the hash.
-    if (href.startsWith("#") && !document.querySelector(href)) {
+    if (href.startsWith('#') && !document.querySelector(href)) {
       router.push(`/${href}`);
       return;
     }
@@ -103,8 +107,9 @@ export function SiteHeader(): React.JSX.Element {
       <header
         data-site-header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-colors duration-300",
-          isScrolled && "border-b border-horizon/10 bg-abyss/90 backdrop-blur-md",
+          'fixed inset-x-0 top-0 z-50 transition-colors duration-300',
+          isScrolled &&
+            'border-b border-horizon/10 bg-abyss/75 backdrop-blur-md',
         )}
       >
         {/* Scrim over the hero only. Guarantees the nav reads against any
@@ -112,8 +117,8 @@ export function SiteHeader(): React.JSX.Element {
         <div
           aria-hidden="true"
           className={cn(
-            "pointer-events-none absolute inset-0 bg-linear-to-b from-abyss/80 via-abyss/40 to-transparent transition-opacity duration-300",
-            isScrolled && "opacity-0",
+            'pointer-events-none absolute inset-0 bg-linear-to-b from-abyss/80 via-abyss/40 to-transparent transition-opacity duration-300',
+            isScrolled && 'opacity-0',
           )}
         />
 
@@ -122,7 +127,7 @@ export function SiteHeader(): React.JSX.Element {
             href="#top"
             onClick={(event) => {
               event.preventDefault();
-              handleNavigate("body");
+              handleNavigate('body');
             }}
             className="font-display text-lg tracking-[0.28em] text-horizon"
             aria-label={`${SITE.name} — back to top`}
@@ -154,7 +159,7 @@ export function SiteHeader(): React.JSX.Element {
               href="#enquire"
               onClick={(event) => {
                 event.preventDefault();
-                handleNavigate("#enquire");
+                handleNavigate('#enquire');
               }}
               className="label-mono inline-block border border-horizon/45 px-5 py-3 text-horizon transition-colors duration-200 hover:border-horizon hover:bg-horizon hover:text-abyss"
             >
@@ -180,8 +185,8 @@ export function SiteHeader(): React.JSX.Element {
         id="mobile-menu"
         hidden={!isOpen}
         className={cn(
-          "fixed inset-0 z-[60] bg-abyss lg:hidden",
-          isOpen && "animate-in fade-in duration-300",
+          'fixed inset-0 z-[60] bg-abyss lg:hidden',
+          isOpen && 'animate-in fade-in duration-300',
         )}
       >
         <div className="gutter flex h-20 items-center justify-between sm:h-24">
@@ -220,7 +225,7 @@ export function SiteHeader(): React.JSX.Element {
             href="#enquire"
             onClick={(event) => {
               event.preventDefault();
-              handleNavigate("#enquire");
+              handleNavigate('#enquire');
             }}
             className="label-mono mt-12 inline-block border border-horizon/40 px-7 py-4 text-horizon"
           >
