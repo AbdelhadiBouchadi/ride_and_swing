@@ -277,7 +277,7 @@ export const PROPERTY: PropertyConfig = {
             "Board and wetsuit",
             "Transfer to the spot working that day",
           ],
-          priceDisplay: "40€ pp",
+          priceDisplay: "40€ / person",
         },
         {
           id: "surf-private",
@@ -315,7 +315,7 @@ export const PROPERTY: PropertyConfig = {
             "Coaching aimed at one thing you are trying to fix",
             "Board and wetsuit if you need them",
           ],
-          priceDisplay: "80€ pp",
+          priceDisplay: "80€ / person",
         },
       ],
     },

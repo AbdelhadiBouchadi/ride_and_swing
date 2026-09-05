@@ -112,7 +112,7 @@
   --color-haze-ink: var(--haze-ink);
   --color-haze-dim: var(--haze-dim);
 
-  --font-display: var(--ff-display), Georgia, "Times New Roman", serif;
+  --font-display: var(--ff-display), "Didot", "Times New Roman", serif;
   --font-body: var(--ff-body), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--ff-mono), ui-monospace, monospace;
 
@@ -150,17 +150,20 @@
     text-rendering: optimizeLegibility;
   }
 
-  /* Newsreader is a transitional serif, not a didone: larger x-height and
-     sturdier stems than the Bodoni this replaced. It wants a touch more
-     leading and noticeably less negative tracking — Bodoni's -0.03em closed
-     up Newsreader's wider counters and made display sizes read cramped. */
+  /* Didone at display sizes wants negative tracking and tight leading.
+
+     Be aware of what this costs: Bodoni Moda's content area is 1.525em
+     (ascent 1.125 + descent 0.400, measured from the font's own metrics), so
+     at a 0.92 line-height the glyphs overflow their line box by 0.3025em on
+     each side. Nothing clips that in normal flow — but the SplitText reveal
+     masks do, which is what `.reveal-line-mask` below exists to correct. */
   h1,
   h2,
   h3 {
     font-family: var(--font-display);
     font-weight: 400;
-    line-height: 0.95;
-    letter-spacing: -0.02em;
+    line-height: 0.92;
+    letter-spacing: -0.03em;
     text-wrap: balance;
   }
 
@@ -198,14 +201,51 @@
     line-height: 1;
   }
 
-  /* Clip wrapper for GSAP mask reveals. */
-  .mask-reveal {
-    display: block;
-    overflow: hidden;
-    clip-path: inset(0 0 -0.25em 0);
+  /* ------------------------------------------------------------------
+     SplitText reveal masks.
+
+     GSAP's `mask` option clones each split element, suffixes every class with
+     `-mask`, and sets `overflow: clip` on the clone. That clip is what hides a
+     line before it rises — and it is also what was decapitating the display
+     type.
+
+     The arithmetic: Bodoni Moda's content area is 1.525em (ascent 1.125,
+     descent 0.400) against a 0.92 display line-height, which puts the baseline
+     0.8225em down a 0.92em line box. Measured against that baseline, a plain
+     capital tops out at 0.0725em and is safe, but an accented capital lands at
+     -0.1275em and a descender reaches 1.0625em — both outside the box, both
+     cut. At the hero's 0.85 leading it is worse: 0.1625em and 0.1775em.
+
+     `overflow-clip-margin` is the right lever rather than padding and negative
+     margins: it widens the clip region without touching layout at all. The
+     padding route would need a negative margin to compensate, and adjacent
+     line masks are siblings — their negative margins would collapse to the
+     single most-negative value instead of summing, shifting every heading.
+
+     0.24em clears the 0.1775em worst case with room to spare. It is paired
+     with the `yPercent` in `RevealText` and `HeroChoreography`, which must stay
+     above 100% + (clip margin ÷ line-height) — 128.2% at the tightest leading
+     on the page — or the incoming line peeks into the widened region before it
+     animates. Both are set to 135. Change one, check the other.
+
+     Body-size text needs none of this: at a 1.6 line-height nothing overflows.
+     The rule is harmless there because the clip only ever grows.
+
+     One caveat for the hero. At a 0.92 or 0.95 leading, 0.24em clears every
+     glyph in Bodoni Moda outright — the font's own bbox (yMax 1.0475em, yMin
+     -0.3135em) needs 0.225em and 0.216em. At the hero's 0.85 leading the same
+     bbox would need 0.26em, so 0.24em is 0.02em short *for the tallest
+     accented capitals in the font*. It is safe today because the wordmark is
+     all caps, which top out 0.0375em inside the box. If the hero ever sets
+     lowercase or accented type at 0.85 leading, raise this to 0.28em and lift
+     both `yPercent` values to at least 133%.
+     ------------------------------------------------------------------ */
+  .reveal-line-mask,
+  .hero-char-mask {
+    overflow: clip;
+    overflow-clip-margin: 0.24em;
   }
 
-  /* SplitText's mask wrapper must clip, or lines are visible above the edge. */
   .reveal-line {
     will-change: transform;
   }

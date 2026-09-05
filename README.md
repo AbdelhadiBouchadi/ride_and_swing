@@ -125,11 +125,15 @@ Contrast ratios are computed, not eyeballed. Note the pairs: `--fairway` is
 is what carries accent type. The same split applies on dark grounds
 (`--fairway-light`, 7.57:1 on abyss).
 
-Type: **Newsreader** (display) / **Manrope** (body) / **JetBrains Mono** —
+Type: **Bodoni Moda** (display) / **Jost** (body) / **JetBrains Mono** —
 the mono is reserved for instrument data: tide times, swell readings, spot
 specs, prices. All numeric runs use tabular figures so values cannot reflow.
-Newsreader is a transitional serif rather than a didone on purpose: the brand
-mark is a heavy collegiate crest, and hairline display faces fight it.
+
+Bodoni's content area is 1.525em against a 0.92 display line-height, so
+accented capitals and descenders fall outside their line box. That is invisible
+in normal flow and fatal inside a GSAP SplitText mask, which clips to it — see
+`.reveal-line-mask` in `globals.css`, and read the note there before changing
+any display line-height or reveal `yPercent`.
 
 ### shadcn/ui and 21st.dev
 

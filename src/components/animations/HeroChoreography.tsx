@@ -42,7 +42,14 @@ export function HeroChoreography({
         const readings = gsap.utils.toArray<HTMLElement>("[data-hero-reading]");
 
         const split = mark
-          ? new SplitText(mark, { type: "chars", mask: "chars" })
+          ? new SplitText(mark, {
+              type: "chars",
+              mask: "chars",
+              // Named so the mask wrapper is addressable as `.hero-char-mask`
+              // in globals.css. Without a class here GSAP derives the mask
+              // class from an empty string.
+              charsClass: "hero-char",
+            })
           : null;
 
         gsap.set([eyebrow, sub, cue].filter(Boolean), { visibility: "visible" });
@@ -67,7 +74,9 @@ export function HeroChoreography({
         if (split) {
           tl.from(
             split.chars,
-            { yPercent: 110, duration: 1.4, stagger: 0.055 },
+            // See `.hero-char-mask` in globals.css — the widened clip means
+            // this has to clear 100% + 0.24em/0.85em = 128.2% of travel.
+            { yPercent: 135, duration: 1.4, stagger: 0.055 },
             0.5,
           );
         }

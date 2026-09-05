@@ -13,19 +13,18 @@ export const contentType = 'image/png';
  *
  * Composed rather than screenshotted, so it holds the brand at thumbnail size:
  * the hero frame under the same two-part scrim the page uses, the wordmark in
- * Newsreader, and a mono strapline. A link with no card is a broken first
+ * Bodoni, and a mono strapline. A link with no card is a broken first
  * impression, and it is the one asset judges and clients see before the site.
  *
  * Assets are read from disk rather than fetched, so the build never depends on
  * a font CDN being reachable.
  */
 export default async function OpengraphImage(): Promise<ImageResponse> {
-  // A *static* WOFF, deliberately. Satori cannot parse variable fonts, and
-  // the Newsreader we load through next/font is variable-only — it fails here
-  // with an opentype table error. This is the Fontsource static latin
-  // instance (28KB) of the same family.
-  const [newsreader, background] = await Promise.all([
-    readFile(path.join(process.cwd(), 'src/assets/fonts/Newsreader-400.woff')),
+  // A *static* WOFF, deliberately. Satori cannot parse variable fonts — the
+  // upstream Bodoni Moda is variable-only and fails with an opentype table
+  // error, so this is the Fontsource static latin instance (19KB).
+  const [bodoni, background] = await Promise.all([
+    readFile(path.join(process.cwd(), 'src/assets/fonts/BodoniModa-400.woff')),
     readFile(path.join(process.cwd(), 'src/assets/og-background.jpg')),
   ]);
 
@@ -112,12 +111,12 @@ export default async function OpengraphImage(): Promise<ImageResponse> {
           <div
             style={{
               display: 'flex',
-              fontFamily: 'Newsreader',
+              fontFamily: 'Bodoni',
               // Sized for a twelve-character mark, not the five-letter one
               // this replaced: 176px overran the 1056px type column.
-              fontSize: 104,
+              fontSize: 132,
               lineHeight: 0.9,
-              letterSpacing: '-0.02em',
+              letterSpacing: '-0.03em',
               color: '#edeae3',
             }}
           >
@@ -143,9 +142,7 @@ export default async function OpengraphImage(): Promise<ImageResponse> {
     ),
     {
       ...size,
-      fonts: [
-        { name: 'Newsreader', data: newsreader, style: 'normal', weight: 400 },
-      ],
+      fonts: [{ name: 'Bodoni', data: bodoni, style: 'normal', weight: 400 }],
     },
   );
 }

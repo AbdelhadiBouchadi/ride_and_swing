@@ -57,8 +57,12 @@ export function RevealText({
         // Inline style beats the `html.js [data-reveal]` rule.
         gsap.set(el, { visibility: "visible" });
 
+        // 135, not 115: `.reveal-line-mask` widens the clip by 0.24em to stop
+        // Bodoni's accented capitals and descenders being cut, and a line
+        // starting only 115% down would sit inside that widened region and
+        // peek before its turn. 128.2% is the floor at the tightest leading.
         const tween = gsap.from(split.lines, {
-          yPercent: 115,
+          yPercent: 135,
           duration: 1.1,
           ease: "expo.out",
           stagger,
