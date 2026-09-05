@@ -53,6 +53,11 @@ export const viewport: Viewport = {
 /**
  * Sets `html.js` before first paint so reveal targets can be hidden without a
  * flash — and, critically, stay visible when JavaScript is unavailable.
+ *
+ * This runs while the document is still parsing, which is the whole point and
+ * also why `<html>` below carries `suppressHydrationWarning`: by the time
+ * React hydrates, the class attribute it server-rendered has already been
+ * changed underneath it.
  */
 const JS_ENABLED_SCRIPT = `document.documentElement.classList.add('js')`;
 
@@ -96,7 +101,33 @@ export default function RootLayout({
   children,
 }: RootLayoutProps): React.JSX.Element {
   return (
-    <html lang="en" className={cn(fontDisplay.variable, fontBody.variable, fontMono.variable)}>
+    /*
+      `suppressHydrationWarning` is load-bearing, not a papering-over.
+
+      Three things add classes to <html> that React does not know about: the
+      progressive-enhancement script above, `Cursor` (`has-custom-cursor`) and
+      Lenis (`lenis`). The latter two run in effects, safely after hydration.
+      The script does not — it has to run during parse or reveal targets flash
+      visible before they are hidden — so React arrives to find a `class`
+      attribute that no longer matches what it rendered and warns that the tree
+      hydrated with mismatched attributes.
+
+      React does not patch the attribute up, so the class survives and the
+      `html.js` selectors in globals.css keep working; the only thing being
+      suppressed is the warning about a mutation we asked for. The flag applies
+      to this element alone and does not cascade, and <html> carries nothing
+      here but `lang` and the three static font variables, so it is not hiding
+      anything that could realistically drift.
+    */
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={cn(
+        fontDisplay.variable,
+        fontBody.variable,
+        fontMono.variable,
+      )}
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: JS_ENABLED_SCRIPT }} />
         <script
