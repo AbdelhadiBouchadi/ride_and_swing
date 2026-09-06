@@ -157,7 +157,7 @@ export function Preloader(): React.JSX.Element {
           >
             000
           </span>
-          <span ref={liveRef} className="sr-only" />
+          <span ref={liveRef} className="sr-only" />%
         </span>
         <span aria-hidden="true" className="label-mono text-horizon/35">
           Ride and Swing

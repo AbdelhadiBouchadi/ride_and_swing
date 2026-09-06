@@ -45,20 +45,6 @@ export function PreloaderProvider({
     setIsPreloading(false);
   }, []);
 
-  /**
-   * Hold the page inert behind the curtain.
-   *
-   * Applied imperatively rather than as a React prop, and that is deliberate:
-   * rendering `inert` into the server HTML would leave the whole site
-   * permanently inert for anyone whose JavaScript never arrives, since nothing
-   * would ever run to take it off. Setting it from an effect means no-JS
-   * visitors get a plain, fully interactive page — which is also why the
-   * overlay's own covering styles are gated on `html.js`.
-   *
-   * The header and <main> are separate targets because the header renders
-   * outside <main>. The mobile menu is `hidden` while closed, so it needs
-   * nothing here.
-   */
   useIsomorphicLayoutEffect(() => {
     const targets = [
       document.querySelector<HTMLElement>('[data-site-header]'),
@@ -89,10 +75,6 @@ export function PreloaderProvider({
   );
 }
 
-/**
- * Read preloader state. Safe outside the provider — reports "not preloading",
- * which is the correct answer for any tree that has no curtain over it.
- */
 export function usePreloader(): PreloaderContextValue {
   const ctx = useContext(PreloaderContext);
   return ctx ?? { isPreloading: false, finish: (): void => undefined };
