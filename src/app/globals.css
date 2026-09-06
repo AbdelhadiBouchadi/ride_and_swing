@@ -353,6 +353,51 @@
    disabled or fails to load, the class never appears and every animated
    element renders in its final, fully readable state.
    -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   The preloader curtain.
+
+   Default is `display: none`, and it is *switched on* by `html.js`, never off.
+   That ordering matters: if the covering styles were the default and JS were
+   responsible for removing them, a visitor whose JavaScript never arrives
+   would be left staring at an opaque panel with nothing able to lift it. This
+   way no-JS gets a plain, working page and never sees a curtain at all.
+
+   `.preloaded` is set by the same blocking <head> script, from a sessionStorage
+   flag, so a reload inside the tab skips the sequence before first paint rather
+   than flashing it and then tearing it down at hydration.
+
+   The badge starts invisible because the server-rendered SVG is fully drawn —
+   without this you would see the finished mark for one frame, then watch it
+   redraw itself. GSAP sets the real start states in a layout effect.
+   -------------------------------------------------------------------------- */
+[data-preloader] {
+  display: none;
+}
+
+html.js:not(.preloaded) [data-preloader] {
+  display: flex;
+}
+
+html.js:not(.preloaded) [data-preloader-badge] {
+  opacity: 0;
+}
+
+/* The header's wordmark letters, staggered in by the preloader's exit as the
+   panel clears. Hidden only while a curtain is actually going to run. */
+html.js:not(.preloaded) [data-header-char] {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  /* Matches the selector above exactly so it can win on source order — the
+     `:not(.preloaded)` above outranks a plainer `html.js` rule. The reduced
+     -motion branch of the timeline never animates these, so they must simply
+     be present. */
+  html.js:not(.preloaded) [data-header-char] {
+    opacity: 1;
+  }
+}
+
 /* Photography wipes in from its bottom edge; clipped until GSAP takes over. */
 html.js [data-clip-reveal] {
   clip-path: inset(0% 0% 100% 0%);

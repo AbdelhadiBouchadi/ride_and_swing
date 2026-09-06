@@ -11,6 +11,7 @@ import {
   type ReactNode,
 } from "react";
 
+import { usePreloader } from "@/components/preloader/PreloaderContext";
 import { useIsomorphicLayoutEffect } from "@/hooks/useIsomorphicLayoutEffect";
 import { usePrefersReducedMotion } from "@/hooks/usePrefersReducedMotion";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
@@ -43,6 +44,7 @@ export function SmoothScroll({ children }: SmoothScrollProps): React.JSX.Element
   const lenisRef = useRef<Lenis | null>(null);
   const prefersReducedMotion = usePrefersReducedMotion();
   const [isSmooth, setIsSmooth] = useState<boolean>(false);
+  const { isPreloading } = usePreloader();
 
   useIsomorphicLayoutEffect(() => {
     if (prefersReducedMotion) {
@@ -92,6 +94,29 @@ export function SmoothScroll({ children }: SmoothScrollProps): React.JSX.Element
       setIsSmooth(false);
     };
   }, [prefersReducedMotion]);
+
+  /**
+   * Lock the scroller behind the curtain, release it on handover.
+   *
+   * Deliberately a second effect rather than a branch inside construction.
+   * `isPreloading` is not in the constructor's dependency list, because
+   * flipping it there would destroy and rebuild Lenis at the exact moment the
+   * page is revealed — dropping every ScrollTrigger bound to it. This effect
+   * is declared after the constructor, so on mount it runs in the same commit,
+   * immediately after Lenis exists and still before paint: the instance is
+   * stopped from its first frame. Merely constructing Lenis already attaches
+   * its wheel and touch listeners, so without this the page would scroll
+   * silently behind the overlay and be revealed part-way down.
+   */
+  useIsomorphicLayoutEffect(() => {
+    const lenis = lenisRef.current;
+    if (!lenis) return;
+    if (isPreloading) {
+      lenis.stop();
+    } else {
+      lenis.start();
+    }
+  }, [isPreloading, isSmooth]);
 
   const scrollTo = useCallback((target: string | number, offset = 0): void => {
     const lenis = lenisRef.current;

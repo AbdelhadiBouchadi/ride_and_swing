@@ -12,6 +12,37 @@ import { gsap, ScrollTrigger, useGSAP } from '@/lib/gsap';
 import { cn } from '@/lib/utils';
 
 /**
+ * The wordmark, one span per letter.
+ *
+ * The preloader's exit timeline staggers these in as its panel clears — the
+ * badge does not morph into the header, it simply leaves while the same
+ * letterforms write themselves in straight instead of arced.
+ *
+ * Only the letters are touched from outside this file. The header's own
+ * `yPercent` belongs to its ScrollTrigger below, and writing to it from the
+ * preloader would fight that trigger for the same property.
+ *
+ * The anchor already carries an `aria-label`, so the visual text is hidden
+ * from assistive tech rather than being read out letter by letter. Spaces
+ * become non-breaking so no span collapses and desyncs the stagger.
+ */
+function Wordmark(): React.JSX.Element {
+  return (
+    <span data-header-wordmark aria-hidden="true">
+      {SITE.wordmark.split('').map((char, index) => (
+        <span
+          key={`${char}-${String(index)}`}
+          data-header-char
+          className="inline-block"
+        >
+          {char === ' ' ? ' ' : char}
+        </span>
+      ))}
+    </span>
+  );
+}
+
+/**
  * Fixed header that recedes on scroll-down and returns on scroll-up.
  *
  * Client component because it owns Lenis-driven anchor scrolling, a
@@ -132,7 +163,7 @@ export function SiteHeader(): React.JSX.Element {
             className="font-display text-lg tracking-[0.28em] text-horizon"
             aria-label={`${SITE.name} — back to top`}
           >
-            {SITE.wordmark}
+            <Wordmark />
           </a>
 
           <nav aria-label="Primary" className="hidden lg:block">

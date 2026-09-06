@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 
 import { Cursor } from "@/components/animations/Cursor";
 import { SmoothScroll } from "@/components/animations/SmoothScroll";
+import { Preloader } from "@/components/preloader/Preloader";
+import { PreloaderProvider } from "@/components/preloader/PreloaderContext";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
@@ -51,15 +53,26 @@ export const viewport: Viewport = {
 };
 
 /**
- * Sets `html.js` before first paint so reveal targets can be hidden without a
- * flash — and, critically, stay visible when JavaScript is unavailable.
+ * Two flags, both set before first paint.
  *
- * This runs while the document is still parsing, which is the whole point and
- * also why `<html>` below carries `suppressHydrationWarning`: by the time
- * React hydrates, the class attribute it server-rendered has already been
- * changed underneath it.
+ * `js` gates every progressive-enhancement rule in `globals.css`: reveal
+ * targets are hidden without a flash, and stay visible when JavaScript is
+ * unavailable.
+ *
+ * `preloaded` is read from a sessionStorage flag the preloader writes when it
+ * finishes. Deciding here rather than in React is what makes a reload inside
+ * the tab skip the curtain *before* anything paints — checking it at hydration
+ * would show the overlay first and then tear it down, which is a worse flash
+ * than the one we are avoiding.
+ *
+ * Both run while the document is still parsing, which is also why `<html>`
+ * below carries `suppressHydrationWarning`: by the time React hydrates, the
+ * class attribute it server-rendered has already been changed underneath it.
+ *
+ * Wrapped in try/catch because `sessionStorage` throws outright — not returns
+ * null — in some privacy modes.
  */
-const JS_ENABLED_SCRIPT = `document.documentElement.classList.add('js')`;
+const BOOT_SCRIPT = `document.documentElement.classList.add('js');try{if(sessionStorage.getItem('rideandswing:preloaded'))document.documentElement.classList.add('preloaded')}catch(e){}`;
 
 /**
  * Structured data. `SportsActivityLocation` rather than `LodgingBusiness`:
@@ -129,7 +142,7 @@ export default function RootLayout({
       )}
     >
       <head>
-        <script dangerouslySetInnerHTML={{ __html: JS_ENABLED_SCRIPT }} />
+        <script dangerouslySetInnerHTML={{ __html: BOOT_SCRIPT }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(businessJsonLd) }}
@@ -144,14 +157,22 @@ export default function RootLayout({
           Skip to content
         </a>
 
-        <SmoothScroll>
-          <SiteHeader />
-          <main id="main">{children}</main>
-          <SiteFooter />
-          {/* Both self-disable on coarse pointers and under reduced motion. */}
-          <Cursor />
-          <ScrollProgress />
-        </SmoothScroll>
+        {/* The provider wraps SmoothScroll so Lenis can read the curtain's
+            state and stay stopped for the whole preload. The overlay itself is
+            a sibling of the scrolled tree, not a child of it — it must not be
+            affected by, or affect, the scroller it is covering. */}
+        <PreloaderProvider>
+          <SmoothScroll>
+            <SiteHeader />
+            <main id="main">{children}</main>
+            <SiteFooter />
+            {/* Both self-disable on coarse pointers and under reduced motion. */}
+            <Cursor />
+            <ScrollProgress />
+          </SmoothScroll>
+
+          <Preloader />
+        </PreloaderProvider>
       </body>
     </html>
   );

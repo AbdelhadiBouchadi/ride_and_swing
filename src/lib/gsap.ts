@@ -1,4 +1,5 @@
 import { gsap } from "gsap";
+import { DrawSVGPlugin } from "gsap/DrawSVGPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { SplitText } from "gsap/SplitText";
 import { useGSAP } from "@gsap/react";
@@ -10,7 +11,7 @@ import { useGSAP } from "@gsap/react";
  * never forget to register and fail silently in production only.
  */
 if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, SplitText, useGSAP);
+  gsap.registerPlugin(DrawSVGPlugin, ScrollTrigger, SplitText, useGSAP);
 
   // Mobile browsers fire resize when the URL bar shows/hides. Without this,
   // every scroll direction change re-runs ScrollTrigger layout maths.
@@ -24,4 +25,4 @@ export const EASE = {
   soft: "power3.out",
 } as const;
 
-export { gsap, ScrollTrigger, SplitText, useGSAP };
+export { DrawSVGPlugin, gsap, ScrollTrigger, SplitText, useGSAP };

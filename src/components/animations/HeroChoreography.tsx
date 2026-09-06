@@ -3,6 +3,7 @@
 import { useRef, type ReactNode } from "react";
 
 import { gsap, SplitText, useGSAP } from "@/lib/gsap";
+import { whenPreloaderReady } from "@/lib/preloader/ready";
 
 export interface HeroChoreographyProps {
   readonly children: ReactNode;
@@ -58,8 +59,20 @@ export function HeroChoreography({
 
         const tl = gsap.timeline({
           defaults: { ease: "expo.out" },
-          // Let the first frame paint before moving anything.
-          delay: 0.15,
+          // No `delay`. It used to buy a frame for the first paint; the
+          // preloader now owns that entirely, and a delay on a paused
+          // timeline only muddies when the playhead actually starts.
+          // Built now, played on handover. The hero sits underneath the
+          // preloader's opaque panel — it paints, so it still registers as
+          // LCP, but it must not perform its arrival to an audience that
+          // cannot see it. `whenPreloaderReady()` resolves immediately when
+          // there is no curtain, so this costs a repeat visit nothing.
+          paused: true,
+        });
+
+        let cancelled = false;
+        void whenPreloaderReady().then(() => {
+          if (!cancelled) tl.play();
         });
 
         if (image) {
@@ -116,6 +129,7 @@ export function HeroChoreography({
         });
 
         return () => {
+          cancelled = true;
           tl.kill();
           sweep.kill();
           split?.revert();
